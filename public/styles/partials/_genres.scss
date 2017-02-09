@@ -1,0 +1,25 @@
+.genres-container {
+  margin: 2rem auto auto 5rem;
+
+  .genres-list {
+    margin: 1rem auto auto 3rem;
+    text-align: left;
+    width: 50%;
+
+    .genre-bands {
+      margin-bottom: 1rem;
+
+      li {
+        align-items: center;
+        margin-left: 2rem;
+
+        img {
+          width: 50px;
+        }
+        span {
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+}

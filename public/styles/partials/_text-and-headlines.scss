@@ -3,6 +3,7 @@ body {
   font: 16px/1.6 $primaryFont;
 }
 
+// header styles
 header {
   h1 {
     font: 7rem $headers;
@@ -22,6 +23,7 @@ header {
   }
 }
 
+// headings in main content
 h2 {
   font-size: 2rem;
   font-weight: 600;
@@ -31,4 +33,37 @@ h3 {
   font-size: 1.5rem;
   font-weight: 600;
   text-decoration: underline;
+}
+
+// search form
+.search-form {
+
+  .search {
+    color: $slate;
+    font: 2rem $primaryFont;
+  }
+}
+
+// genres
+.genres-container {
+
+  h2 {
+    text-decoration: underline;
+  }
+
+  h3 {
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+// labels
+.labels-container {
+  h3 {
+    font: 2.5rem $headers;
+    text-decoration: none;
+  }
 }

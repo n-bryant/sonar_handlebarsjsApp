@@ -13,14 +13,16 @@ header {
   width: 25%;
 }
 
-ul {
-  justify-content: space-around;
-  margin-top: 1rem;
-  text-align: center;
+nav {
+  ul {
+    justify-content: space-around;
+    margin-top: 1rem;
+    text-align: center;
 
-  li {
-    &:hover {
-      cursor: pointer;
+    li {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

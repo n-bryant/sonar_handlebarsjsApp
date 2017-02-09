@@ -15,3 +15,13 @@ main {
     padding: 2rem;
   }
 }
+
+.search-form {
+  margin: 0 auto;
+  width: 50%;
+
+  .search {
+    border: 1px solid $slate;
+    width: 100%;
+  }
+}
