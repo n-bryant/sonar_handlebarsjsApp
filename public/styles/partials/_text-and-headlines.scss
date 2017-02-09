@@ -1,46 +1,34 @@
 body {
   color: $slate;
-  font: 16px/1.6 Helvetica;
+  font: 16px/1.6 $primaryFont;
 }
 
 header {
-  color: $lightGrey;
-  font-size: 3rem;
-  font-weight: 800;
+  h1 {
+    font: 7rem $headers;
+    text-shadow: 2px 2px $lightGrey;
+    text-transform: uppercase;
+  }
 
-  span {
-    font-weight: 200;
+  nav {
+    li {
+      font-size: 1.5rem;
+
+      &:hover {
+        color: $lightGrey;
+        text-decoration: underline;
+      }
+    }
   }
 }
 
-.query-container {
-  font-size: 1.5rem;
-  font-weight: 800;
-    span {
-      font-weight: 200;
-    }
-}
-
-a {
-  color: $slate;
-  text-decoration: none;
-}
-
-.org-name {
+h2 {
+  font-size: 2rem;
   font-weight: 600;
 }
-.org-description {
-  font-style: italic;
-}
 
-input {
-  font-size: 2rem;
-
-  &[type="submit"] {
-    color: $lightGrey;
-
-    &:active {
-      color: $slate;
-    }
-  }
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: underline;
 }

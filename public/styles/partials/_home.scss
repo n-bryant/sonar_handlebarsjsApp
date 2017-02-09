@@ -1,0 +1,41 @@
+
+.featured-article {
+  justify-content: center;
+  padding: 2rem;
+  width: 40%;
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+.featured-bands {
+  padding: 2rem;
+  width: 60%;
+
+  .band-list {
+    flex-wrap: wrap;
+
+    .band-item {
+      background: $slate;
+      margin: 1px;
+      width: 33%;
+
+      img {
+        width: 100%;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.featured-band-bio {
+  margin: 1rem auto;
+
+  h3 {
+    text-align: center;
+  }
+}
