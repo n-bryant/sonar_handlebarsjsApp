@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SONAR</title>
+    <link href="https://fonts.googleapis.com/css?family=Metal+Mania|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <header>
+          <div class="home-btn is-centered">
+            <img class='logo' src="http://oceanservice.noaa.gov/facts/sound.jpg" alt="whale sonar">
+            <h1>sonar</h1>
+          </div>
+          <nav>
+            <ul class="is-flex">
+                <li data-name="genres">Genres</li>
+                <li data-name="bands">Bands</li>
+                <li data-name="labels">Labels</li>
+                <li data-name="songs">Songs</li>
+            </ul>
+      </header>
+      <main>
+        <section class="loading-container is-hidden">
+          <div class="load-icon"></div>
+        </section>
+        <div class="content-container">
+          <!-- Handlebars Templates will go here -->
+
+          
+          <ul class="genres-list">
+            <li></li>
+          </ul>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- Handlebar Syntax -->
+    <!-- Home -->
+    <script id="home-template" type="text/x-handlebars-template">
+      <div class="home is-flex">
+        <section class="featured-article">
+          <h2>Article Title</h2>
+          <p>On olemassa monta eri versiota Lorem Ipsumin kappaleista, mutta suurin osa on kärsinyt muunnoksista joissain muodoissa, kuten huumorin tai sattumanvaraisesti asetetuin sanoin jotka eivät näytä edes vähän uskottavalta. Jos sinä aiot käyttää kappaletta Lorem Ipsumista, sinun pitää tarkistaa, ettei tekstin seassa ole mitään nolostuttavaa. Kaikki Lorem Ipsum-generaattorit Internetissä tuntuvat toistavan ennalta määriteltyjä palasia tarpeen mukaan, tehden tästä ensimmäisen aidon generaattorin Internetissä. Se käyttää 200 latinalaisen sanan sanakirjaa, johon on yhdistetty kourallinen mallilauseiden rakenteita luoden Lorem Ipsumin, joka näyttää järjelliseltä. Generoitu Lorem Ipsum on siten aina vapaa toistoilta, huumorilta jne.</p>
+          <p>On todistettu, että lukijaa häiritsee sivun ulkoasu lukiessaan sivua. Lorem Ipsumin käytön tarkoitus on, että se omaa enemmän-tai-vähemmän normaalimpaa sanojen sijoitusta kuin 'Sisältöä tähän, sisältöä tähän'. Monet tietokoneen julkistusohjelmien pakkaukset ja nettisivueditorit käyttävät nyt Lorem Ipsumia heidän normaalina mallitekstinä. 'Lorem Ipsumia' etsittäessä löytyy monen monta nettisivua, jotka ovat vasta aluillaan. Useita versioita on muodostunut vuosien kuluessa, jotkut vahingossa ja jotkut tarkoituksella (lisätty huumoria ja niin edelleen).</p>
+        </section>
+        <section class="featured-bands">
+          <h2>Featured Artists</h2>
+          <ul class="band-list is-flex">
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+            <li class="band-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale"></li>
+          </ul>
+          <article class="featured-band-bio">
+            <h3>Band Name</h3>
+            <p>Vastoin yleistä uskomusta, Lorem Ipsum ei ole vain sattumanvarainen teksti. Sillä on pitkät juuret klassisesta latinalaisesta kirjallisuudesta vuonna 45 eKr alkaen, tehden siitä yli 2000 vuotta vanhan. Richard McClintock, latinalainen professori Hampden-Sydneyn yliopistossa Virginiassa, etsi yhden vaikeaselkoisimmista latinalaisista sanoista, consectetur, Lorem Ipsumin kappaleesta ja etsi lainauksia sanasta klassisessa kirjallisuudessa löytäen varman lähteen. Lorem Ipsum tulee osista 1.10.32 ja 1.10.33 "de Finibus Bonorum et Malorum":ksesta (The Extremes of Good and Evil), jonka teki Cicero vuonna 45 eKr. Tämä kirja on tutkielma etiikasta, joka oli hyvin yleistä Renesanssin aikana. Ensimmäinen Lorem Ipsumin rivi, "Lorem ipsum dolor sit amet..", tulee rivistä joka on osassa 1.10.32.</p>
+          </article>
+        </section>
+      </div>
+    </script>
+
+    <!-- Genres -->
+    <script id="genres-template" type="text/x-handlebars-template">
+    </script>
+
+    <!-- Bands -->
+    <script id="bands-template" type="text/x-handlebars-template">
+    </script>
+
+    <!-- Labels -->
+    <script id="labels-template" type="text/x-handlebars-template">
+    </script>
+    <script src="js/vendor/jquery-3.1.1.min.js"></script>
+    <script src="js/vendor/handlebars-v4.0.5.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
