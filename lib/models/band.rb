@@ -12,17 +12,15 @@ class Band < ActiveRecord::Base
   has_many :songs, through: :albums
 
   def get_band_info()
-    band = Band.find(attributes['id'])
-
     {
-      biography: band.biography,
-      albums: band.albums,
-      genres: band.genres,
-      id: band.id,
-      label: { id: band.label.id, name: band.label.name },
-      name: band.name,
-      rating_avg: band.rating_avg,
-      songs: band.songs
+      biography: self.biography,
+      albums: self.albums,
+      genres: self.genres,
+      id: self.id,
+      label: { id: self.label.id, name: self.label.name },
+      name: self.name,
+      rating_avg: self.rating_avg,
+      songs: self.songs
     }
   end
 end
