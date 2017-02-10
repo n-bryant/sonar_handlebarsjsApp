@@ -15,11 +15,15 @@ after do
   ActiveRecord::Base.connection.close
 end
 
-get '/api/band' do
+get '/' do
+  File.read(File.join('public', 'index.html'))
+end
+
+get '/band' do
   Band.all.map { |band| band.get_band_info }.to_json
 end
 
-get '/api/band/:id' do |id|
+get '/band/:id' do |id|
   Band.find(id).get_band_info.to_json
 end
 
