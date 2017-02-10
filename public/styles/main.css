@@ -87,10 +87,22 @@ h3 {
   text-decoration: none; }
   .genres-container h3:hover {
     cursor: pointer; }
+.genres-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .genres-container button:active {
+    color: #303438; }
 
 .labels-container h3 {
   font: 2.5rem "Metal Mania", cursive;
   text-decoration: none; }
+.labels-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .labels-container button:active {
+    color: #303438; }
 
 .loading-container {
   align-items: center;
@@ -172,6 +184,7 @@ nav ul {
       margin: 1px;
       width: 33%; }
       .featured-bands .band-list .band-item img {
+        display: block;
         width: 100%; }
       .featured-bands .band-list .band-item:hover {
         cursor: pointer; }
@@ -183,32 +196,61 @@ nav ul {
 
 .genres-container {
   margin: 2rem auto auto 5rem; }
-  .genres-container .genres-list {
-    margin: 1rem auto auto 3rem;
-    text-align: left;
-    width: 50%; }
-    .genres-container .genres-list .genre-bands {
-      margin-bottom: 1rem; }
-      .genres-container .genres-list .genre-bands li {
-        align-items: center;
-        margin-left: 2rem; }
-        .genres-container .genres-list .genre-bands li img {
-          width: 50px; }
-        .genres-container .genres-list .genre-bands li span {
-          margin-left: .5rem; }
+  .genres-container .actions {
+    padding-left: 1rem;
+    width: 25%; }
+    .genres-container .actions button {
+      background: none;
+      border: none; }
+
+.genres-list {
+  margin: 1rem auto auto 3rem;
+  text-align: left;
+  width: 50%; }
+  .genres-list .genre-bands {
+    margin-bottom: 1rem; }
+    .genres-list .genre-bands li {
+      align-items: center;
+      margin: 1rem 0 1rem 2rem; }
+      .genres-list .genre-bands li img {
+        width: 50px; }
+      .genres-list .genre-bands li span {
+        margin-left: .5rem; }
 
 .labels-container {
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
   padding-left: 15rem;
   text-align: center;
   width: 85%; }
-  .labels-container .label-item img {
-    height: 20%;
-    width: 20%; }
-  .labels-container .label-item div {
-    flex-direction: column;
-    justify-content: center;
-    width: 80%; }
+
+.labels {
+  clear: both; }
+
+.label-item img {
+  height: 20%;
+  width: 20%; }
+.label-item .details {
+  flex-direction: column;
+  justify-content: center;
+  width: 80%; }
+.label-item .actions {
+  padding-top: 1rem;
+  text-align: center; }
+  .label-item .actions button {
+    background: none;
+    border: none;
+    margin-bottom: 1rem;
+    width: 15%; }
+    .label-item .actions button:hover {
+      cursor: pointer; }
+
+.add {
+  background: none;
+  border: none;
+  float: left;
+  margin-bottom: 1rem; }
+  .add:hover {
+    cursor: pointer; }
 
 .is-flex {
   display: flex; }

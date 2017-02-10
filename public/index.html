@@ -46,11 +46,11 @@
           <h2>Featured Artists</h2>
           <ul class="band-list is-flex">
             <!-- top 6 band results -->
-            <li class="band-item"><img src="{{image}}" alt="{{name}}"></li>
+            <li class="band-item" data-id="{{id}}"><img src="{{image}}" alt="{{name}}"></li>
           </ul>
           <article class="featured-band-bio">
             <h3>{{name}}</h3>
-            <p>{{bio}}</p>
+            <p>{{background}}</p>
           </article>
         </section>
       </div>
@@ -64,14 +64,26 @@
       </form>
       <section class="genres-container">
         <h2>Genres:</h2>
+        <button class="add">add genre</button>
         <ul class="genres-list">
           <!-- item for each genre -->
           <li>
-            <h3 class="genre-title">{{genre.name}}</h3>
-            <ul class="genre-bands is-hidden">
-              <!-- item for each band with matching genre id -->
-              <li class="is-flex"><image src="{{band.image}}"><span>{{band.name}}</span></li>
-            </ul>
+            <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
+            <div class="genre-details-container">
+              <div class="actions">
+                <button class="edit">edit</button>
+                <button class="delete">delete</button>
+              </div>
+              <ul class="genre-bands">
+                <!-- item for each band with matching genre id -->
+                {{#each bands}}
+                <li class="is-flex">
+                  <image src="{{image}}">
+                  <span>{{name}}</span>
+                </li>
+                {{/each}}
+              </ul>
+            </div>
           </li>
         </ul>
       </section>
@@ -79,6 +91,50 @@
 
     <!-- Bands -->
     <script id="bands-template" type="text/x-handlebars-template">
+      <form class="search-form is-centered">
+          <input class="search is-centered" type="text" placeholder="Search...">
+          <input class="is-hidden" type="submit" value="submit">
+      </form>
+      <section class="band-list-container">
+        <h2>Artists</h2>
+        <ul class="band-container-list is-flex">
+          <li class="band-container is-flex">
+            <div class="artist is-flex">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+              <div class="display-name-container is-flex">
+                <h2 class="band-name">{{name}}</h2>
+                <div class="label-home-container is-flex">
+                  <h3 class="genre-name basic-info">{{genre}}</h3>
+                  <h3 class="hometown-name basic-info">{{hometown}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown is-hidden">
+              <ul>
+                <li class="bio-container is-flex slide">
+                  <p class="band-members">{{members}}</p>
+                  <p class="bio">{{background}}</p>
+                  <h3 class="label-name">{{label}}</h3>
+                </li>
+                <li class="albums-container slide">
+                  <h2 albums-header>ALBUMS</h2>
+                  <div class="album-image-container is-flex">
+                    <div class="album-one-image">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                    </div>
+                    <div class="other-album-images is-flex">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </section>
     </script>
 
     <!-- Labels -->
@@ -88,13 +144,18 @@
         <input class="is-hidden" type="submit" value="submit">
       </form>
       <section class="labels-container">
+        <button class="add">add label</button>
         <ul class="labels">
           <li>
             <div class="label-item is-flex">
               <img src="{{image}}" alt="{{name}}">
-              <div class="is-flex">
+              <div class="details is-flex">
                 <h3>{{name}}</h3>
                 <p>{{location}}</p>
+                <div class="actions">
+                  <button class="edit">edit</button>
+                  <button class="delete">delete</button>
+                </div>
               </div>
             </div>
           </li>

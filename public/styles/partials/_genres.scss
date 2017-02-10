@@ -1,24 +1,34 @@
 .genres-container {
   margin: 2rem auto auto 5rem;
 
-  .genres-list {
-    margin: 1rem auto auto 3rem;
-    text-align: left;
-    width: 50%;
+  .actions {
+    padding-left: 1rem;
+    width: 25%;
 
-    .genre-bands {
-      margin-bottom: 1rem;
+    button {
+      background: none;
+      border: none;
+    }
+  }
+}
 
-      li {
-        align-items: center;
-        margin-left: 2rem;
+.genres-list {
+  margin: 1rem auto auto 3rem;
+  text-align: left;
+  width: 50%;
 
-        img {
-          width: 50px;
-        }
-        span {
-          margin-left: .5rem;
-        }
+  .genre-bands {
+    margin-bottom: 1rem;
+
+    li {
+      align-items: center;
+      margin: 1rem 0 1rem 2rem;
+
+      img {
+        width: 50px;
+      }
+      span {
+        margin-left: .5rem;
       }
     }
   }

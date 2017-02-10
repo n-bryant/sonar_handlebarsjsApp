@@ -58,6 +58,16 @@ h3 {
       cursor: pointer;
     }
   }
+
+  button {
+    color: $sky;
+    font-family: $primaryFont;
+    text-decoration: underline;
+
+    &:active {
+      color: $slate;
+    }
+  }
 }
 
 // labels
@@ -65,5 +75,15 @@ h3 {
   h3 {
     font: 2.5rem $headers;
     text-decoration: none;
+  }
+
+  button {
+    color: $sky;
+    font-family: $primaryFont;
+    text-decoration: underline;
+
+    &:active {
+      color: $slate;
+    }
   }
 }
