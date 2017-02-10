@@ -5,6 +5,7 @@ class CreateBiographiesTable < ActiveRecord::Migration[5.0]
   def up
     create_table :biographies do |t|
       t.string :background
+      t.string :image_path
       t.string :members
       t.string :origin_date
       t.belongs_to :band, :foreign_key => 'bands.id'

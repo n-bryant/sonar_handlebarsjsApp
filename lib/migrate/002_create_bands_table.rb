@@ -7,6 +7,7 @@ class CreateBandsTable < ActiveRecord::Migration[5.0]
       t.boolean :active
       t.belongs_to :label, :foreign_key => 'labels.id'
       t.string :name
+      t.float :rating_avg
     end
   end
 
