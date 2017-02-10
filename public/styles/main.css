@@ -77,6 +77,33 @@ h3 {
   font-weight: 600;
   text-decoration: underline; }
 
+.search-form .search {
+  color: #303438;
+  font: 2rem "Open Sans", sans-serif; }
+
+.genres-container h2 {
+  text-decoration: underline; }
+.genres-container h3 {
+  text-decoration: none; }
+  .genres-container h3:hover {
+    cursor: pointer; }
+.genres-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .genres-container button:active {
+    color: #303438; }
+
+.labels-container h3 {
+  font: 2.5rem "Metal Mania", cursive;
+  text-decoration: none; }
+.labels-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .labels-container button:active {
+    color: #303438; }
+
 .loading-container {
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
@@ -117,6 +144,13 @@ main {
   main .content-container {
     padding: 2rem; }
 
+.search-form {
+  margin: 0 auto;
+  width: 50%; }
+  .search-form .search {
+    border: 1px solid #303438;
+    width: 100%; }
+
 header {
   background: #D75C37;
   padding: 2rem 2rem 1rem 2rem; }
@@ -126,11 +160,11 @@ header {
 .logo {
   width: 25%; }
 
-ul {
+nav ul {
   justify-content: space-around;
   margin-top: 1rem;
   text-align: center; }
-  ul li:hover {
+  nav ul li:hover {
     cursor: pointer; }
 
 .featured-article {
@@ -150,6 +184,7 @@ ul {
       margin: 1px;
       width: 33%; }
       .featured-bands .band-list .band-item img {
+        display: block;
         width: 100%; }
       .featured-bands .band-list .band-item:hover {
         cursor: pointer; }
@@ -158,6 +193,64 @@ ul {
   margin: 1rem auto; }
   .featured-band-bio h3 {
     text-align: center; }
+
+.genres-container {
+  margin: 2rem auto auto 5rem; }
+  .genres-container .actions {
+    padding-left: 1rem;
+    width: 25%; }
+    .genres-container .actions button {
+      background: none;
+      border: none; }
+
+.genres-list {
+  margin: 1rem auto auto 3rem;
+  text-align: left;
+  width: 50%; }
+  .genres-list .genre-bands {
+    margin-bottom: 1rem; }
+    .genres-list .genre-bands li {
+      align-items: center;
+      margin: 1rem 0 1rem 2rem; }
+      .genres-list .genre-bands li img {
+        width: 50px; }
+      .genres-list .genre-bands li span {
+        margin-left: .5rem; }
+
+.labels-container {
+  margin: 2rem auto 0 auto;
+  padding-left: 15rem;
+  text-align: center;
+  width: 85%; }
+
+.labels {
+  clear: both; }
+
+.label-item img {
+  height: 20%;
+  width: 20%; }
+.label-item .details {
+  flex-direction: column;
+  justify-content: center;
+  width: 80%; }
+.label-item .actions {
+  padding-top: 1rem;
+  text-align: center; }
+  .label-item .actions button {
+    background: none;
+    border: none;
+    margin-bottom: 1rem;
+    width: 15%; }
+    .label-item .actions button:hover {
+      cursor: pointer; }
+
+.add {
+  background: none;
+  border: none;
+  float: left;
+  margin-bottom: 1rem; }
+  .add:hover {
+    cursor: pointer; }
 
 .is-flex {
   display: flex; }

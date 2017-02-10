@@ -1,0 +1,35 @@
+.genres-container {
+  margin: 2rem auto auto 5rem;
+
+  .actions {
+    padding-left: 1rem;
+    width: 25%;
+
+    button {
+      background: none;
+      border: none;
+    }
+  }
+}
+
+.genres-list {
+  margin: 1rem auto auto 3rem;
+  text-align: left;
+  width: 50%;
+
+  .genre-bands {
+    margin-bottom: 1rem;
+
+    li {
+      align-items: center;
+      margin: 1rem 0 1rem 2rem;
+
+      img {
+        width: 50px;
+      }
+      span {
+        margin-left: .5rem;
+      }
+    }
+  }
+}
