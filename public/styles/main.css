@@ -260,7 +260,6 @@ nav ul {
   .band-container-list .band-container {
     background: #cfcfcf;
     width: 100%;
-    border: 1px solid black;
     flex-direction: column; }
     .band-container-list .band-container:nth-of-type(even) {
       background: #6991AC; }
@@ -269,8 +268,7 @@ nav ul {
       z-index: 2; }
     .band-container-list .band-container img {
       width: 20%;
-      height: 20%;
-      border: 1px solid black; }
+      height: 20%; }
     .band-container-list .band-container .display-name-container {
       flex-direction: column;
       align-items: center;
@@ -311,20 +309,26 @@ nav ul {
             width: 50%;
             margin: 0; }
             .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img {
-              border: 1px solid black;
               height: 100%;
               width: 100%;
               margin: 0; }
+              .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img:hover {
+                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+                z-index: 3;
+                transform: scale(1.05); }
           .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images {
             position: relative;
             flex-wrap: wrap;
             float: right;
             width: 50%; }
             .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img {
-              border: 1px solid black;
               height: 50%;
               width: 50%;
               margin: 0; }
+              .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img:hover {
+                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+                z-index: 3;
+                transform: scale(1.05); }
 
 .is-flex {
   display: flex; }

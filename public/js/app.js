@@ -109,7 +109,7 @@
                 $(this).siblings('.genre-details-container').slideToggle('slow');
             });
             //clicking a band
-            $('.content-container').on('click', '.band-container', function() {
+            $('.content-container').on('click', '.artist', function() {
                 $('.dropdown').slideToggle('slow');
                 $(this).siblings().toggleClass('is-hidden');
             });
