@@ -2,13 +2,14 @@
   "use strict"
 
   const sonarModule = function() {
+    const $contentContainer = $('.content-container');
 
     class Band {
       constructor() {
         this.active = true;
         this.albums = [{ "id": 1, "name": "Monument"}, { "id": 2, "name": "Carving Desert Canyons" }];
         this.id = 1;
-        this.biography = { background: "Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas.", members: ["Chris Letchford, Charlie Engen"], origin_date: "2004" };
+        this.biography = { background: "Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas.", hometown: 'NYC, NY', members: ["Chris Letchford, Charlie Engen"], origin_date: "2004" };
         this.genres = ["Progressive Metal, Instrumental Rock"];
         this.image = "https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg";
         this.label = "Prosthetic Records";
@@ -17,17 +18,19 @@
       }
 
       build() {
-        const source = $('#home-template').html();
+        const source = $('#bands-template').html(); // home or band
         const template = Handlebars.compile(source);
         const context = {
           id: this.id,
           image: this.image,
           name: this.name,
+          genre: this.genres,
+          hometown: this.biography.hometown,
           background: this.biography.background
         };
         // console.log(context);
         const html = template(context);
-        $('.content-container').append(html);
+        $contentContainer.append(html);
       }
     }
 
@@ -49,7 +52,7 @@
         };
         console.log(context);
         const html = template(context);
-        $('.content-container').append(html);
+        $contentContainer.append(html);
       }
     }
 
@@ -72,7 +75,7 @@
           name: this.name
         }
         const html = template(context);
-        $('.content-container').append(html);
+        $contentContainer.append(html);
       }
     }
 
@@ -85,14 +88,90 @@
         this.reset();
       });
 
+      /* Genre Tab Listeners */
       // clicking a genre name
-      $('.content-container').on('click', '.genre-title', function() {
+      $contentContainer.on('click', '.genre-title', function() {
         $(this).siblings('.genre-details-container').slideToggle('slow');
       });
-      //clicking a band
-      $('.content-container').on('click', '.band-container', function() {
-        $('.dropdown').toggleClass('is-hidden').slideToggle('slow');
-        $(this).siblings('.band-container').toggleClass('is-hidden');
+      // clicking add genre button
+      $contentContainer.on('click', '.genres-container .add', function() {
+        $(this).toggle();
+        $('.genres-list').toggle();
+        $('.add-genre-form').toggleClass('is-hidden');
+      });
+      // clicking cancel add genre button
+      $contentContainer.on('click', '.add-genre-form .cancel', function() {
+        event.preventDefault();
+        $(this).parents('.add-genre-form').toggleClass('is-hidden');
+        $('.genres-container .add').toggle();
+        $('.genres-list').toggle();
+      });
+      // editing genre item
+      $contentContainer.on('click', '.genre-item .actions .edit', function() {
+        $(this).parents('.actions').siblings('.edit-genre-form').slideToggle();
+      });
+      // deleting genre item
+      $contentContainer.on('click', '.genre-item .actions .delete', function() {
+        $(this).parents('li').remove();
+      });
+
+      /* Band Tab Listeners */
+      //clicking a artist
+      $contentContainer.on('click', '.band-name', function() {
+        $('.dropdown').slideToggle('slow');
+        $(this).parents('.band-container').siblings('.band-container').toggleClass('is-hidden');
+      });
+      // clicking add artist button
+      $contentContainer.on('click', '.band-list-container .add', function() {
+        $(this).toggle();
+        $('.band-container-list').toggle();
+        $('.add-band-form').toggleClass('is-hidden');
+      });
+      // clicking cancel add artist button
+      $contentContainer.on('click', '.add-artist-form .cancel', function() {
+        event.preventDefault();
+        $(this).parents('.add-artist-form').toggleClass('is-hidden');
+        $('.band-container-list .add').toggle();
+        $('.labels').toggle();
+      });
+      // editing arist item
+      $contentContainer.on('click', '.artist .actions .edit', function() {
+        $(this).parents('.actions').siblings('.edit-artist-form').slideToggle();
+      });
+      // deleting artist item
+      $contentContainer.on('click', '.artist .actions .delete', function() {
+        $(this).parents('li').remove();
+      });
+
+      /* Label Tab Listeners */
+      // clicking add label button
+      $contentContainer.on('click', '.labels-container .add', function() {
+        $(this).toggle();
+        $('.labels').toggle();
+        $('.add-label-form').toggleClass('is-hidden');
+      });
+      // clicking cancel add label button
+      $contentContainer.on('click', '.add-label-form .cancel', function() {
+        event.preventDefault();
+        $(this).parents('.add-label-form').toggleClass('is-hidden');
+        $('.labels-container .add').toggle();
+        $('.labels').toggle();
+      });
+      // submitting add label form
+      $contentContainer.on('submit', '.add-label-form', function() {
+        event.preventDefault();
+        console.log(event.target[0].value);
+        console.log(event.target[1].value);
+        console.log(event.target[2].value);
+        this.reset();
+      });
+      // editing label item
+      $contentContainer.on('click', '.label-item .actions .edit', function() {
+        $(this).parents('.actions').siblings('.edit-label-form').slideToggle();
+      });
+      // deleting label item
+      $contentContainer.on('click', '.label-item .actions .delete', function() {
+        $(this).parents('li').remove();
       });
     }
 
@@ -112,8 +191,8 @@
     function init() {
       bindEvents();
       // getLabelResults();
-      // getBandResults();
-      getGenreResults();
+      getBandResults();
+      // getGenreResults();
     }
 
     return {

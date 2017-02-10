@@ -65,15 +65,24 @@
       <section class="genres-container">
         <h2>Genres:</h2>
         <button class="add">add genre</button>
+        <form class="add-genre-form is-flex is-hidden">
+          <input type="text" placeholder="name" name="genre-name">
+          <input type="submit" value="Add Genre">
+          <button class="cancel">cancel</button>
+        </form>
         <ul class="genres-list">
           <!-- item for each genre -->
-          <li>
+          <li class="genre-item">
             <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
-            <div class="genre-details-container">
+            <div class="genre-details-container is-hidden">
               <div class="actions">
                 <button class="edit">edit</button>
                 <button class="delete">delete</button>
               </div>
+              <form class="edit-genre-form is-hidden">
+                <input type="text" placeholder="genre name">
+                <input type="submit" value="submit">
+              </form>
               <ul class="genre-bands">
                 <!-- item for each band with matching genre id -->
                 {{#each bands}}
@@ -97,6 +106,15 @@
       </form>
       <section class="band-list-container">
         <h2>Artists</h2>
+        <button class="add">add artist</button>
+        <form class="add-band-form is-flex is-hidden">
+          <input type="text" placeholder="image location" name="artist-location">
+          <input type="text" placeholder="name" name="artist-name">
+          <input type="text" placeholder="hometown" name="hometown">
+          <input type="text" placeholder="label" name="label">
+          <input type="submit" value="Add Artist">
+          <button class="cancel">cancel</button>
+        </form>
         <ul class="band-container-list is-flex">
           <li class="band-container is-flex">
             <div class="artist is-flex">
@@ -108,6 +126,17 @@
                   <h3 class="hometown-name basic-info">{{hometown}}</h3>
                 </div>
               </div>
+              <div class="actions">
+                <button class="edit">edit</button>
+                <button class="delete">delete</button>
+              </div>
+              <form class="edit-artist-form is-hidden">
+                <input type="text" placeholder="image location" name="artist-location">
+                <input type="text" placeholder="name" name="artist-name">
+                <input type="text" placeholder="hometown" name="hometown">
+                <input type="text" placeholder="label" name="label">
+                <input type="submit" value="Submit">
+              </form>
             </div>
             <div class="dropdown is-hidden">
               <ul>
@@ -145,6 +174,13 @@
       </form>
       <section class="labels-container">
         <button class="add">add label</button>
+        <form class="add-label-form is-flex is-hidden">
+          <input type="text" placeholder="image location" name="img-location">
+          <input type="text" placeholder="name" name="label-name">
+          <input type="text" placeholder="hq location" name="hq-location">
+          <input type="submit" value="Add Label">
+          <button class="cancel">cancel</button>
+        </form>
         <ul class="labels">
           <li>
             <div class="label-item is-flex">
@@ -156,6 +192,12 @@
                   <button class="edit">edit</button>
                   <button class="delete">delete</button>
                 </div>
+                <form class="edit-label-form is-hidden">
+                  <input type="text" placeholder="image location" name="img-location">
+                  <input type="text" placeholder="name" name="label-name">
+                  <input type="text" placeholder="hq location" name="hq-location">
+                  <input type="submit" value="Edit Label">
+                </form>
               </div>
             </div>
           </li>
