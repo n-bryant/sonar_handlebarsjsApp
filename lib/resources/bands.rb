@@ -2,6 +2,8 @@ require 'json'
 require 'sinatra'
 require 'yaml'
 require_relative '../models/band'
+require_relative '../models/band_genre'
+require_relative '../validator'
 
 database_config = ENV['DATABASE_URL']
 
@@ -39,40 +41,41 @@ get '/band/:id/biography' do |id|
   band.biography.to_json
 end
 
-# get '/api/trainers/:id' do |id|
-#   trainer = Trainer.find_by(id: id)
-#   halt [404, 'No trainer found'.to_json] if trainer.nil?
-#
-#   trainer.team.to_json
-# end
-#
-# patch '/api/trainers/:id' do |id|
-#   trainer = Trainer.find_by(id: id)
-#   halt [400, 'No trainer found'.to_json] if trainer.nil?
-#
-#   params.delete('splat')
-#   params.delete('captures')
-#
-#   trainer.update(params)
-#   trainer.to_json
-# end
-#
-# post '/api/trainers/:name' do |name|
-#   params.delete('splat')
-#   params.delete('captures')
-#
-#   trainer = Trainer.create(params)
-#   trainer.to_json
-# end
-#
-# post '/api/trainers/' do
-#   halt [400, 'No name entered'.to_json]
-# end
-#
-# delete '/api/trainers/:id' do |id|
-#   trainer = Trainer.find_by(id: id)
-#   halt [400, 'No trainer found'.to_json] if trainer.nil?
-#
-#   trainer.destroy
-#   trainer.to_json
-# end
+post '/band' do
+  label = Label.find_by(name: params['label']['name'])
+  halt [400, 'Invalid label'.to_json] if label.nil?
+
+  band = Band.new(
+    active: params['active'],
+    label: label,
+    name: params['name']
+  )
+
+  halt [400, 'Name and active status are required'.to_json] unless band.valid?
+  halt [400, 'Biography is empty'.to_json] if params['biography'].nil?
+
+  unless params['biography'].class == Hash
+    halt [400, 'Biography should be an object'.to_json]
+  end
+
+  biography = Biography.new(params['biography'])
+  halt [400, 'Incomplete biography'.to_json] unless biography.valid?
+
+  band.save
+  biography.band = band
+  biography.save
+
+  halt [400, 'No genres entered'.to_json] if params['genres'].nil? or params['genres'].empty?
+
+  unless Validator.genres_are_valid?(params['genres'])
+    halt [400, 'Genres should be an array of objects'.to_json]
+  end
+
+  params['genres'].each do |genre|
+    current_genre = Genre.find_by(name: genre['name'])
+    halt [400, 'Invalid genre'.to_json] if current_genre.nil?
+    BandGenre.create(band: band, genre: current_genre)
+  end
+
+  [201, band.to_json]
+end

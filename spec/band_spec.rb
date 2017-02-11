@@ -1,6 +1,25 @@
 require 'resources/bands'
 
 describe 'bands' do
+
+  before :each do
+    @sts_params = {
+      active: true,
+      biography: {
+        background: "Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas. It formed in 2004 and signed to Prosthetic Records. The band is influenced by other progressive acts such as Cynic and Dream Theater. The band gained notice as part of the Progressive Nation 2009 tour with Dream Theater, Zappa Plays Zappa and Bigelf.",
+        image_path: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/ScaleTheSummit121509.jpg/250px-ScaleTheSummit121509.jpg",
+        members: "Chris Letchford, Charlie Engen",
+        origin_date: 2004
+      },
+      genres: [
+        { name: "Progressive Metal" },
+        { name: "Instrumental Rock" }
+      ],
+      label: { name: "Prosthetic Records" },
+      name: "Scale the Summit"
+    }
+  end
+
   describe "#get '/band'" do
     it 'returns a list of all bands' do
       get '/band'
@@ -46,6 +65,87 @@ describe 'bands' do
 
         expect(last_response.status).to eq 404
         expect(JSON.parse(last_response.body)).to eq 'No band found.'
+      end
+    end
+  end
+
+  describe "#post /band" do
+    context 'when valid band information is entered' do
+      it 'creates a new band' do
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 201
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Summit'
+      end
+    end
+
+    context 'when a label is not entered' do
+      it 'returns a no label error' do
+        @sts_params['label'] = ''
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Invalid label'
+      end
+    end
+
+    context 'when the band name is not entered' do
+      it 'returns a no name error' do
+        @sts_params['name'] = ''
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Name and active status are required'
+      end
+    end
+
+    context 'when the biography is not an object' do
+      it 'returns an incorrect format error' do
+        @sts_params['biography'] = ''
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Biography should be an object'
+      end
+    end
+
+  context 'when an empty biography is entered' do
+    it 'returns a empty biography error' do
+      @sts_params[:biography] = {}
+      post '/band', @sts_params
+
+      expect(last_response.status).to eq 400
+      expect(JSON.parse(last_response.body)).to eq 'Biography is empty'
+    end
+  end
+
+  context 'when an incomplete biography is entered' do
+    it 'returns a bad biography error' do
+      @sts_params[:biography] = { background: 'Former pokemon trainer'}
+      post '/band', @sts_params
+
+      expect(last_response.status).to eq 400
+      expect(JSON.parse(last_response.body)).to eq 'Incomplete biography'
+    end
+  end
+
+    context 'when an entered genre does not exist' do
+      it 'returns an invalid genre error' do
+        @sts_params['genres'] = [{ name: 'Pikachu' }]
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Invalid genre'
+      end
+    end
+
+    context 'when genres is not an array of objects' do
+      it 'returns an incorrect format error' do
+        @sts_params['genres'] = ['Rock', 'More Rock']
+        post '/band', @sts_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of objects'
       end
     end
   end
