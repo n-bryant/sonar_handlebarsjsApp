@@ -15,16 +15,28 @@ after do
   ActiveRecord::Base.connection.close
 end
 
-get '/' do
-  File.read(File.join('public', 'index.html'))
-end
-
 get '/band' do
-  Band.all.map { |band| band.get_band_info }.to_json
+  bands = Band.all.map { |band| band.get_band_info }
+
+  halt [404, 'No bands found'.to_json] if bands.empty?
+
+  bands.to_json
 end
 
 get '/band/:id' do |id|
-  Band.find(id).get_band_info.to_json
+  band = Band.find_by_id(id)
+
+  halt [404, 'No band found.'.to_json] if band.nil?
+
+  band.get_band_info.to_json
+end
+
+get '/band/:id/biography' do |id|
+  band = Band.find_by_id(id)
+
+  halt [404, 'No band found.'.to_json] if band.nil?
+
+  band.biography.to_json
 end
 
 # get '/api/trainers/:id' do |id|
