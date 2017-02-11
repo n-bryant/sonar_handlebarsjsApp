@@ -11,16 +11,29 @@ class Band < ActiveRecord::Base
   belongs_to :label
   has_many :songs, through: :albums
 
-  def get_band_info()
+  def get_band_info
     {
-      biography: self.biography,
-      albums: self.albums,
-      genres: self.genres,
-      id: self.id,
-      label: { id: self.label.id, name: self.label.name },
-      name: self.name,
+      biography:  self.biography,
+      albums:     self.albums,
+      genres:     self.genres,
+      id:         self.id,
+      label:      { id: self.label.id, name: self.label.name },
+      name:       self.name,
       rating_avg: self.rating_avg,
-      songs: self.songs
+      songs:      self.songs
     }
+  end
+
+  def discography
+    self.albums.map do |album|
+      {
+        band:         self.name,
+        genres:       album.genres,
+        id:           album.id,
+        image:        album.image,
+        name:         album.name,
+        release_date: album.release_date
+      }
+    end
   end
 end

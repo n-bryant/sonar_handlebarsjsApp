@@ -41,9 +41,18 @@ get '/band/:id/biography' do |id|
   band.biography.to_json
 end
 
+get '/band/:id/discography' do |id|
+  band = Band.find_by_id(id)
+
+  halt [404, 'No band found.'.to_json] if band.nil?
+  halt [400, 'No albums found for that band.'.to_json] if band.albums.empty?
+
+  band.discography.to_json
+end
+
 post '/band' do
   label = Label.find_by(name: params['label']['name'])
-  halt [400, 'Invalid label'.to_json] if label.nil?
+  halt [400, 'Invalid label.'.to_json] if label.nil?
 
   band = Band.new(
     active: params['active'],
@@ -51,29 +60,29 @@ post '/band' do
     name: params['name']
   )
 
-  halt [400, 'Name and active status are required'.to_json] unless band.valid?
-  halt [400, 'Biography is empty'.to_json] if params['biography'].nil?
+  halt [400, 'Name and active status are required.'.to_json] unless band.valid?
+  halt [400, 'Biography is empty.'.to_json] if params['biography'].nil?
 
   unless params['biography'].class == Hash
-    halt [400, 'Biography should be an object'.to_json]
+    halt [400, 'Biography should be an object.'.to_json]
   end
 
   biography = Biography.new(params['biography'])
-  halt [400, 'Incomplete biography'.to_json] unless biography.valid?
+  halt [400, 'Incomplete biography.'.to_json] unless biography.valid?
 
   band.save
   biography.band = band
   biography.save
 
-  halt [400, 'No genres entered'.to_json] if params['genres'].nil? or params['genres'].empty?
+  halt [400, 'No genres entered.'.to_json] if params['genres'].nil? or params['genres'].empty?
 
   unless Validator.genres_are_valid?(params['genres'])
-    halt [400, 'Genres should be an array of objects'.to_json]
+    halt [400, 'Genres should be an array of objects.'.to_json]
   end
 
   params['genres'].each do |genre|
     current_genre = Genre.find_by(name: genre['name'])
-    halt [400, 'Invalid genre'.to_json] if current_genre.nil?
+    halt [400, 'Invalid genre.'.to_json] if current_genre.nil?
     BandGenre.create(band: band, genre: current_genre)
   end
 

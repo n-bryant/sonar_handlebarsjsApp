@@ -49,7 +49,7 @@ describe 'bands' do
     end
   end
 
-  describe "#get /band/:id/biography" do
+  describe "#get '/band/:id/biography'" do
     context 'when a valid band id is entered' do
       it 'returns the info of a band' do
         get '/band/1/biography'
@@ -69,7 +69,36 @@ describe 'bands' do
     end
   end
 
-  describe "#post /band" do
+  describe "#get '/band/:id/discography'" do
+    context 'when a band with albums is entered' do
+      it 'returns all albums by that band' do
+        get '/band/1/discography'
+
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body).first['name']).to eq 'Monument'
+      end
+    end
+
+    context 'when a band with no albums is entered' do
+      it 'returns a no albums error' do
+        get '/band/2/discography'
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No albums found for that band.'
+      end
+    end
+
+    context 'when an invalid id is entered' do
+      it 'returns a 404' do
+        get '/band/horse-dagger/discography'
+
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)).to eq 'No band found.'
+      end
+    end
+  end
+
+  describe "'#post /band'" do
     context 'when valid band information is entered' do
       it 'creates a new band' do
         post '/band', @sts_params
@@ -85,7 +114,7 @@ describe 'bands' do
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Invalid label'
+        expect(JSON.parse(last_response.body)).to eq 'Invalid label.'
       end
     end
 
@@ -95,7 +124,7 @@ describe 'bands' do
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Name and active status are required'
+        expect(JSON.parse(last_response.body)).to eq 'Name and active status are required.'
       end
     end
 
@@ -105,7 +134,7 @@ describe 'bands' do
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Biography should be an object'
+        expect(JSON.parse(last_response.body)).to eq 'Biography should be an object.'
       end
     end
 
@@ -115,7 +144,7 @@ describe 'bands' do
       post '/band', @sts_params
 
       expect(last_response.status).to eq 400
-      expect(JSON.parse(last_response.body)).to eq 'Biography is empty'
+      expect(JSON.parse(last_response.body)).to eq 'Biography is empty.'
     end
   end
 
@@ -125,7 +154,7 @@ describe 'bands' do
       post '/band', @sts_params
 
       expect(last_response.status).to eq 400
-      expect(JSON.parse(last_response.body)).to eq 'Incomplete biography'
+      expect(JSON.parse(last_response.body)).to eq 'Incomplete biography.'
     end
   end
 
@@ -135,7 +164,7 @@ describe 'bands' do
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Invalid genre'
+        expect(JSON.parse(last_response.body)).to eq 'Invalid genre.'
       end
     end
 
@@ -145,7 +174,7 @@ describe 'bands' do
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of objects'
+        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of objects.'
       end
     end
   end
