@@ -166,37 +166,3 @@
     }
   }
 }
-
-.artist {
-  .actions {
-    button {
-      background: none;
-      border: none;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .edit-artist-form {
-    margin: 1rem 1rem 0 0;
-    input {
-      display: block;
-      margin-bottom: .5rem;
-
-      &[type="submit"] {
-        background: $slate;
-        border-radius: 0;
-
-        &:hover {
-          cursor: pointer;
-        }
-        &:active {
-          background: $lightGrey;
-          border: $slate;
-        }
-      }
-    }
-  }
-}

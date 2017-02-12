@@ -79,33 +79,7 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="genres-list">
-<<<<<<< HEAD
-          <!-- item for each genre -->
-          <li class="genre-item">
-            <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
-            <div class="genre-details-container is-hidden">
-              <div class="actions">
-                <button class="edit">edit</button>
-                <button class="delete">delete</button>
-              </div>
-              <form class="edit-genre-form is-hidden">
-                <input type="text" placeholder="genre name">
-                <input type="submit" value="submit">
-              </form>
-              <ul class="genre-bands">
-                <!-- item for each band with matching genre id -->
-                {{#each bands}}
-                <li class="is-flex">
-                  <image src="{{image}}">
-                  <span>{{name}}</span>
-                </li>
-                {{/each}}
-              </ul>
-            </div>
-          </li>
-=======
           <!-- Genre Templates -->
->>>>>>> master
         </ul>
       </section>
     </script>
@@ -153,56 +127,7 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="band-container-list is-flex">
-<<<<<<< HEAD
-          <li class="band-container is-flex">
-            <div class="artist is-flex">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-              <div class="display-name-container is-flex">
-                <h2 class="band-name">{{name}}</h2>
-                <div class="label-home-container is-flex">
-                  <h3 class="genre-name basic-info">{{genre}}</h3>
-                  <h3 class="hometown-name basic-info">{{hometown}}</h3>
-                </div>
-              </div>
-              <div class="actions">
-                <button class="edit">edit</button>
-                <button class="delete">delete</button>
-              </div>
-              <form class="edit-artist-form is-hidden">
-                <input type="text" placeholder="image location" name="artist-location">
-                <input type="text" placeholder="name" name="artist-name">
-                <input type="text" placeholder="hometown" name="hometown">
-                <input type="text" placeholder="label" name="label">
-                <input type="submit" value="Submit">
-              </form>
-            </div>
-            <div class="dropdown is-hidden">
-              <ul>
-                <li class="bio-container is-flex slide">
-                  <p class="band-members">{{members}}</p>
-                  <p class="bio">{{background}}</p>
-                  <h3 class="label-name">{{label}}</h3>
-                </li>
-                <li class="albums-container slide">
-                  <h2 albums-header>ALBUMS</h2>
-                  <div class="album-image-container is-flex">
-                    <div class="album-one-image">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                    </div>
-                    <div class="other-album-images is-flex">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-=======
           <!-- band template -->
->>>>>>> master
         </ul>
       </section>
     </script>
@@ -268,29 +193,7 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="labels">
-<<<<<<< HEAD
-          <li>
-            <div class="label-item is-flex">
-              <img src="{{image}}" alt="{{name}}">
-              <div class="details is-flex">
-                <h3>{{name}}</h3>
-                <p>{{location}}</p>
-                <div class="actions">
-                  <button class="edit">edit</button>
-                  <button class="delete">delete</button>
-                </div>
-                <form class="edit-label-form is-hidden">
-                  <input type="text" placeholder="image location" name="img-location">
-                  <input type="text" placeholder="name" name="label-name">
-                  <input type="text" placeholder="hq location" name="hq-location">
-                  <input type="submit" value="Edit Label">
-                </form>
-              </div>
-            </div>
-          </li>
-=======
           <!-- label template -->
->>>>>>> master
         </ul>
       </section>
     </script>
