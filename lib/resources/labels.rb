@@ -1,3 +1,5 @@
+require_relative '../models/label'
+
 get '/label' do
   labels = Label.all
   halt [404, 'No labels found'.to_json] if labels.empty?

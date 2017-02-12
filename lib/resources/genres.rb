@@ -1,3 +1,5 @@
+require_relative '../models/genre'
+
 get '/genre' do
   genres = Genre.all
   halt [404, 'No genres found'.to_json] if genres.empty?
