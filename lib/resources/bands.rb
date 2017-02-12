@@ -74,7 +74,7 @@ get '/band/:id/songs' do |id|
 end
 
 post '/band' do
-  label = Label.find_by(name: params['label']['name'])
+  label = Label.find_by(name: params['label'])
   halt [400, 'Invalid label.'.to_json] if label.nil?
 
   band = Band.new(
@@ -100,14 +100,57 @@ post '/band' do
   halt [400, 'No genres entered.'.to_json] if params['genres'].nil? or params['genres'].empty?
 
   unless Validator.genres_are_valid?(params['genres'])
-    halt [400, 'Genres should be an array of objects.'.to_json]
+    halt [400, 'Genres should be an array of strings.'.to_json]
   end
 
   params['genres'].each do |genre|
-    current_genre = Genre.find_by(name: genre['name'])
+    current_genre = Genre.find_by(name: genre)
     halt [400, 'Invalid genre.'.to_json] if current_genre.nil?
     BandGenre.create(band: band, genre: current_genre)
   end
 
   [201, band.to_json]
+end
+
+put '/band/:id' do |id|
+  band = Band.find_by_id(id)
+  halt [404, 'Band not found.'.to_json] if band.nil?
+  label = Label.find_by(name: params['label'])
+  halt [400, 'Invalid label.'.to_json] if label.nil?
+
+  updated = band.update(
+    active: params['active'],
+    label: label,
+    name: params['name']
+  )
+
+  halt [400, 'Name and active status are required.'.to_json] unless updated
+  halt [400, 'Biography is empty.'.to_json] if params['biography'].nil?
+
+  unless params['biography'].class == Hash
+    halt [400, 'Biography should be an object.'.to_json]
+  end
+
+  biography = Biography.find_by(band: band)
+  updated = biography.update(params['biography'])
+  halt [400, 'Incomplete biography.'.to_json] unless updated
+
+  halt [400, 'No genres entered.'.to_json] if params['genres'].nil? or params['genres'].empty?
+
+  unless Validator.genres_are_valid?(params['genres'])
+    halt [400, 'Genres should be an array of strings.'.to_json]
+  end
+
+  genres_updated = false
+
+  params['genres'].each do |genre|
+    current_genre = Genre.find_by(name: genre)
+    halt [400, 'Invalid genre.'.to_json] if current_genre.nil?
+
+    BandGenre.where(band: band).delete_all unless genres_updated
+
+    genres_updated = BandGenre.create(band: band, genre: current_genre)
+  end
+
+  [200, band.to_json]
 end

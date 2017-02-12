@@ -2,7 +2,8 @@ require 'active_record'
 Dir["./lib/models/*.rb"].each { |file| require file }
 
 class Band < ActiveRecord::Base
-  validates :active, :name, presence: true
+  validates :active, inclusion: { in: [true, false] }
+  validates :name, presence: true
   has_many :albums
   has_one :biography
   has_many :band_genres

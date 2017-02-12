@@ -6,17 +6,30 @@ describe 'bands' do
     @sts_params = {
       active: true,
       biography: {
-        background: "Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas. It formed in 2004 and signed to Prosthetic Records. The band is influenced by other progressive acts such as Cynic and Dream Theater. The band gained notice as part of the Progressive Nation 2009 tour with Dream Theater, Zappa Plays Zappa and Bigelf.",
-        image_path: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/ScaleTheSummit121509.jpg/250px-ScaleTheSummit121509.jpg",
-        members: "Chris Letchford, Charlie Engen",
+        background: 'Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas. It formed in 2004 and signed to Prosthetic Records. The band is influenced by other progressive acts such as Cynic and Dream Theater. The band gained notice as part of the Progressive Nation 2009 tour with Dream Theater, Zappa Plays Zappa and Bigelf.',
+        image_path: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/ScaleTheSummit121509.jpg/250px-ScaleTheSummit121509.jpg',
+        members: 'Chris Letchford, Charlie Engen',
         origin_date: 2004
       },
       genres: [
-        { name: "Progressive Metal" },
-        { name: "Instrumental Rock" }
+        'Progressive Metal',
+        'Instrumental Rock'
       ],
-      label: { name: "Prosthetic Records" },
-      name: "Scale the Summit"
+      label: 'Prosthetic Records',
+      name: 'Scale the Summit'
+    }
+
+    @new_params = {
+      active: false,
+      biography: {
+        background: 'Scale the Cowbell was an Italian cowbell band based out of Bologna, Italy. It formed in 1976 and signed to Bruce Dickinson Records. The band was influenced by other cowbell acts such as Blue Oyster Cult and War. The band gained notice as part of the Cowbell United tour with War, Led Zepplin, and the Rolling Stones.',
+        image_path: 'http://media.gettyimages.com/photos/episode-19-aired-05142005-pictured-will-ferrell-as-gene-frenkle-with-picture-id138426499',
+        members: 'Will Ferrell, Charlie Engen',
+        origin_date: 1976
+      },
+      genres: [ 'Cowbell' ],
+      label: 'Bruce Dickinson Records',
+      name: 'Scale the Cowbell'
     }
   end
 
@@ -33,9 +46,9 @@ describe 'bands' do
     context 'when a valid band id is entered' do
       it 'returns the info of a band' do
         get '/band/1'
-        binding.pry
+
         expect(last_response.status).to eq 200
-        expect(JSON.parse(last_response.body)['name']).to eq 'STS'
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Summit'
       end
     end
 
@@ -110,7 +123,7 @@ describe 'bands' do
 
     context 'when a band with no images is entered' do
       it 'returns a no images error' do
-        get '/band/2/images'
+        get '/band/10/images'
 
         expect(last_response.status).to eq 400
         expect(JSON.parse(last_response.body)).to eq 'No images found for that band.'
@@ -127,11 +140,11 @@ describe 'bands' do
     end
   end
 
-  describe "#get /band/:id/songs" do
+  describe "#get '/band/:id/songs'" do
     context 'when a band with songs is entered' do
       it 'returns a list of songs for that band' do
         get '/band/1/songs'
-        binding.pry
+
         expect(last_response.status).to eq 200
         expect(JSON.parse(last_response.body).first['name']).to eq 'Omni'
       end
@@ -156,7 +169,7 @@ describe 'bands' do
     end
   end
 
-  describe "'#post /band'" do
+  describe "#post '/band'" do
     context 'when valid band information is entered' do
       it 'creates a new band' do
         post '/band', @sts_params
@@ -218,7 +231,7 @@ describe 'bands' do
 
     context 'when an entered genre does not exist' do
       it 'returns an invalid genre error' do
-        @sts_params['genres'] = [{ name: 'Pikachu' }]
+        @sts_params['genres'] = ['Pikachu']
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
@@ -226,13 +239,97 @@ describe 'bands' do
       end
     end
 
-    context 'when genres is not an array of objects' do
+    context 'when genres is not an array of strings' do
       it 'returns an incorrect format error' do
-        @sts_params['genres'] = ['Rock', 'More Rock']
+        @sts_params['genres'] = [{ genre: 'Rock' }, { genre: 'More Rock' }]
         post '/band', @sts_params
 
         expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of objects.'
+        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of strings.'
+      end
+    end
+  end
+
+  describe "#put '/band/:id'" do
+    context 'when valid band information is entered' do
+      it 'updates the selected band' do
+        put '/band/2', @new_params
+        band = Band.find_by_id(2)
+
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Cowbell'
+        expect(band.genres.first.name).to eq 'Cowbell'
+        expect(band.genres.second).to eq nil
+      end
+    end
+
+    context 'when a label is not entered' do
+      it 'returns a no label error' do
+        @new_params['label'] = ''
+        put '/band/2', @new_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Invalid label.'
+      end
+    end
+
+    context 'when the band name is not entered' do
+      it 'returns a no name error' do
+        @new_params['name'] = ''
+        put '/band/2', @new_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Name and active status are required.'
+      end
+    end
+
+    context 'when the biography is not an object' do
+      it 'returns an incorrect format error' do
+        @new_params['biography'] = ''
+        put '/band/2', @new_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Biography should be an object.'
+      end
+    end
+
+  context 'when an empty biography is entered' do
+    it 'returns a empty biography error' do
+      @new_params[:biography] = {}
+      put '/band/2', @new_params
+
+      expect(last_response.status).to eq 400
+      expect(JSON.parse(last_response.body)).to eq 'Biography is empty.'
+    end
+  end
+
+  context 'when an incomplete biography is entered' do
+    it 'returns a bad biography error' do
+      @new_params[:biography] = { background: '' }
+      put '/band/2', @new_params
+
+      expect(last_response.status).to eq 400
+      expect(JSON.parse(last_response.body)).to eq 'Incomplete biography.'
+    end
+  end
+
+    context 'when an entered genre does not exist' do
+      it 'returns an invalid genre error' do
+        @new_params['genres'] = ['Christopher Walken']
+        put '/band/2', @new_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Invalid genre.'
+      end
+    end
+
+    context 'when genres is not an array of strings' do
+      it 'returns an incorrect format error' do
+        @new_params['genres'] = [{ genre: 'More Cowbell' }, { genre: 'Catbell' }]
+        put '/band/2', @new_params
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of strings.'
       end
     end
   end
