@@ -1,6 +1,7 @@
 require 'json'
 require 'sinatra'
 require 'yaml'
+require 'active_record'
 
 database_config = ENV['DATABASE_URL']
 
