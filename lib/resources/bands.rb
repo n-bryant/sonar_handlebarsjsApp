@@ -60,6 +60,19 @@ get '/band/:id/images' do |id|
   images.to_json
 end
 
+get '/band/:id/songs' do |id|
+  band = Band.find_by_id(id)
+  halt [404, 'No band found.'.to_json] if band.nil?
+
+  songs = band.songs
+  halt [400, 'No songs found for that band.'.to_json] if songs.empty?
+
+  song_list = []
+  songs.each { |song| song_list << song.details}
+
+  song_list.to_json
+end
+
 post '/band' do
   label = Label.find_by(name: params['label']['name'])
   halt [400, 'Invalid label.'.to_json] if label.nil?

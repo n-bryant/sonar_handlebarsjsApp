@@ -33,7 +33,7 @@ describe 'bands' do
     context 'when a valid band id is entered' do
       it 'returns the info of a band' do
         get '/band/1'
-
+        binding.pry
         expect(last_response.status).to eq 200
         expect(JSON.parse(last_response.body)['name']).to eq 'STS'
       end
@@ -111,7 +111,7 @@ describe 'bands' do
     context 'when a band with no images is entered' do
       it 'returns a no images error' do
         get '/band/2/images'
-        
+
         expect(last_response.status).to eq 400
         expect(JSON.parse(last_response.body)).to eq 'No images found for that band.'
       end
@@ -120,6 +120,35 @@ describe 'bands' do
     context 'when an invalid id is entered' do
       it 'returns a 404' do
         get '/band/horse-dagger/images'
+
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)).to eq 'No band found.'
+      end
+    end
+  end
+
+  describe "#get /band/:id/songs" do
+    context 'when a band with songs is entered' do
+      it 'returns a list of songs for that band' do
+        get '/band/1/songs'
+        binding.pry
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body).first['name']).to eq 'Omni'
+      end
+    end
+
+    context 'when a band with no songs is entered' do
+      it 'returns a no songs error' do
+        get '/band/2/songs'
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No songs found for that band.'
+      end
+    end
+
+    context 'when an invalid id is entered' do
+      it 'returns a 404' do
+        get '/band/horse-dagger/discography'
 
         expect(last_response.status).to eq 404
         expect(JSON.parse(last_response.body)).to eq 'No band found.'
