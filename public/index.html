@@ -49,8 +49,8 @@
 
           </ul>
           <article class="featured-band-bio">
-            <h3></h3>
-            <p></p>
+            <h3 class="featured-name"></h3>
+            <p class="featured-bio"></p>
           </article>
         </section>
       </div>
@@ -59,8 +59,8 @@
     <script id="featured-band-template" type="text/x-handlebars-template">
       <li class="band-item" data-id="{{id}}">
         <img src="{{image}}" alt="{{name}}">
-        <p class="is-hidden">{{name}}</p>
-        <p class="is-hidden">{{background}}</p>
+        <p class="band-name is-hidden">{{name}}</p>
+        <p class="band-background is-hidden">{{background}}</p>
       </li>
     </script>
 
@@ -135,12 +135,15 @@
     <script id="band-template" type="text/x-handlebars-template">
       <li class="band-container is-flex">
         <div class="artist is-flex">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+          <img src="{{image}}" alt="{{name}}">
           <div class="display-name-container is-flex">
             <h2 class="band-name">{{name}}</h2>
             <div class="label-home-container is-flex">
-              <h3 class="genre-name basic-info">{{genre}}</h3>
-              <h3 class="hometown-name basic-info">{{hometown}}</h3>
+              <h3 class="genre-name basic-info">
+                {{#each genre}}
+                  <span>{{this.name}} </span>
+                {{/each}}
+              </h3>
             </div>
           </div>
           <div class="actions">
@@ -150,7 +153,6 @@
           <form class="edit-artist-form is-hidden">
             <input type="text" placeholder="image location" name="artist-location">
             <input type="text" placeholder="name" name="artist-name">
-            <input type="text" placeholder="hometown" name="hometown">
             <input type="text" placeholder="label" name="label">
             <input type="submit" value="Submit">
           </form>
@@ -165,15 +167,9 @@
             <li class="albums-container slide">
               <h2 albums-header>ALBUMS</h2>
               <div class="album-image-container is-flex">
-                <div class="album-one-image">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                </div>
-                <div class="other-album-images is-flex">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                </div>
+                {{#each albums}}
+                  <img src="{{this.image}}" alt="{{this.name}}">
+                {{/each}}
               </div>
             </li>
           </ul>
