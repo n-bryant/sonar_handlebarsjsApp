@@ -1,0 +1,24 @@
+get '/label' do
+  labels = Label.all
+  halt [404, 'No labels found'.to_json] if labels.empty?
+
+  labels.to_json
+end
+
+get '/label/:id' do |id|
+  label = Label.find_by_id(id)
+
+  halt [404, 'No label found.'.to_json] if label.nil?
+
+  label.to_json
+end
+
+get '/label/:id/bands' do |id|
+  label = Label.find_by_id(id)
+  halt [404, 'No label found.'.to_json] if label.nil?
+
+  bands = label.bands.map { |band| band.get_band_info }
+  halt [400, 'No bands found for that label.'.to_json] if bands.empty?
+
+  bands.to_json
+end
