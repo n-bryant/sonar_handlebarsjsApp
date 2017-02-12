@@ -8,14 +8,14 @@ end
 get '/label/:id' do |id|
   label = Label.find_by_id(id)
 
-  halt [404, 'No label found.'.to_json] if label.nil?
+  halt [404, 'Label not found.'.to_json] if label.nil?
 
   label.to_json
 end
 
 get '/label/:id/bands' do |id|
   label = Label.find_by_id(id)
-  halt [404, 'No label found.'.to_json] if label.nil?
+  halt [404, 'Label not found.'.to_json] if label.nil?
 
   bands = label.bands.map { |band| band.get_band_info }
   halt [400, 'No bands found for that label.'.to_json] if bands.empty?
@@ -30,9 +30,22 @@ post '/label' do
     logo_path: params['logo_path'],
     name: params['name']
   )
-  
-  halt [400, 'All fields are required.'.to_json] unless label.valid?
+
+  halt [400, 'Fields cannot be blank.'.to_json] unless label.valid?
 
   label.save
   [201, label.to_json]
+end
+
+put '/label/:id' do |id|
+  label = Label.find_by_id(id)
+  halt [400, 'Label not found.'.to_json] if label.nil?
+
+  params.delete('splat')
+  params.delete('captures')
+
+  updated = label.update(params)
+  halt [400, 'Fields cannot be blank.'.to_json] unless updated
+
+  [200, label.to_json]
 end
