@@ -333,4 +333,26 @@ describe 'bands' do
       end
     end
   end
+
+  describe "#delete '/band/:id'" do
+    context 'when a valid band id is entered' do
+      it 'deletes the band' do
+        last_band_id = Band.last.id
+        delete "/band/#{last_band_id}"
+
+        expect(last_response.status).to eq 200
+        expect(Band.find_by_id(last_band_id)).to eq nil
+      end
+    end
+
+    context 'when an invalid band id is entered' do
+      it 'returns an unable to delete error ' do
+        last_band_id = Band.last.id
+        delete "/band/#{last_band_id + 1}"
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No band with that id, unable to delete.'
+      end
+    end
+  end
 end

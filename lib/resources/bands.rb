@@ -154,3 +154,11 @@ put '/band/:id' do |id|
 
   [200, band.to_json]
 end
+
+delete '/band/:id' do |id|
+  band = Band.find_by_id(id)
+  halt [400, 'No band with that id, unable to delete.'.to_json] if band.nil?
+
+  band.destroy
+  band.to_json
+end
