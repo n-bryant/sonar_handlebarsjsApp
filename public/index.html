@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>SONAR</title>
-      <link href="https://fonts.googleapis.com/css?family=Metal+Mania|Open+Sans" rel="stylesheet">
-      <link rel="stylesheet" href="styles/main.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SONAR</title>
+    <link href="https://fonts.googleapis.com/css?family=Metal+Mania|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
   </head>
-
   <body>
     <div class="main-wrapper">
-        <header>
-            <div class="home-btn is-centered">
-                <img class='logo' src="http://oceanservice.noaa.gov/facts/sound.jpg" alt="whale sonar">
-                <h1>sonar</h1>
-            </div>
-            <nav>
-                <ul class="is-flex">
-                    <li data-name="genres">Genres</li>
-                    <li data-name="bands">Bands</li>
-                    <li data-name="labels">Labels</li>
-                    <li data-name="songs">Songs</li>
-                </ul>
-        </header>
-        <main>
-            <section class="loading-container is-hidden">
-                <div class="load-icon"></div>
-            </section>
-            <div class="content-container">
-                <!-- Handlebars Templates will go here -->
+      <header>
+          <div class="home-btn is-centered">
+            <img class='logo' src="http://oceanservice.noaa.gov/facts/sound.jpg" alt="whale sonar">
+            <h1>sonar</h1>
+          </div>
+          <nav>
+            <ul class="is-flex">
+                <li data-name="home">Home</li>
+                <li data-name="genres">Genres</li>
+                <li data-name="bands">Bands</li>
+                <li data-name="labels">Labels</li>
+            </ul>
+      </header>
+      <main>
+        <section class="loading-container is-hidden">
+          <div class="load-icon"></div>
+        </section>
+        <div class="content-container">
+          <!-- Handlebars Templates will go here -->
 
-            </div>
-        </main>
+        </div>
+      </main>
     </div>
 
     <!-- Handlebar Syntax -->
@@ -47,14 +46,22 @@
           <h2>Featured Artists</h2>
           <ul class="band-list is-flex">
             <!-- top 6 band results -->
-            <li class="band-item" data-id="{{id}}"><img src="{{image}}" alt="{{name}}"></li>
+
           </ul>
           <article class="featured-band-bio">
-            <h3>{{name}}</h3>
-            <p>{{background}}</p>
+            <h3></h3>
+            <p></p>
           </article>
         </section>
       </div>
+    </script>
+    <!-- featured band -->
+    <script id="featured-band-template" type="text/x-handlebars-template">
+      <li class="band-item" data-id="{{id}}">
+        <img src="{{image}}" alt="{{name}}">
+        <p class="is-hidden">{{name}}</p>
+        <p class="is-hidden">{{background}}</p>
+      </li>
     </script>
 
     <!-- Genres -->
@@ -72,31 +79,34 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="genres-list">
-          <!-- item for each genre -->
-          <li class="genre-item">
-            <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
-            <div class="genre-details-container is-hidden">
-              <div class="actions">
-                <button class="edit">edit</button>
-                <button class="delete">delete</button>
-              </div>
-              <form class="edit-genre-form is-hidden">
-                <input type="text" placeholder="genre name">
-                <input type="submit" value="submit">
-              </form>
-              <ul class="genre-bands">
-                <!-- item for each band with matching genre id -->
-                {{#each bands}}
-                <li class="is-flex">
-                  <image src="{{image}}">
-                  <span>{{name}}</span>
-                </li>
-                {{/each}}
-              </ul>
-            </div>
-          </li>
+          <!-- Genre Templates -->
         </ul>
       </section>
+    </script>
+    <!-- genre -->
+    <script id="#genre-template" type="text/x-handlebars-template">
+      <!-- item for each genre -->
+      <li class="genre-item">
+        <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
+        <div class="genre-details-container is-hidden">
+          <div class="actions">
+            <button class="edit">edit</button>
+            <button class="delete">delete</button>
+          </div>
+          <form class="edit-genre-form is-hidden">
+            <input type="text" placeholder="genre name">
+            <input type="submit" value="submit">
+          </form>
+          <ul class="genre-bands">
+            {{#each bands}}
+            <li class="is-flex">
+              <image src="{{image}}">
+              <span>{{name}}</span>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </li>
     </script>
 
     <!-- Bands -->
@@ -117,54 +127,58 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="band-container-list is-flex">
-          <li class="band-container is-flex">
-            <div class="artist is-flex">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-              <div class="display-name-container is-flex">
-                <h2 class="band-name">{{name}}</h2>
-                <div class="label-home-container is-flex">
-                  <h3 class="genre-name basic-info">{{genre}}</h3>
-                  <h3 class="hometown-name basic-info">{{hometown}}</h3>
-                </div>
-              </div>
-              <div class="actions">
-                <button class="edit">edit</button>
-                <button class="delete">delete</button>
-              </div>
-              <form class="edit-artist-form is-hidden">
-                <input type="text" placeholder="image location" name="artist-location">
-                <input type="text" placeholder="name" name="artist-name">
-                <input type="text" placeholder="hometown" name="hometown">
-                <input type="text" placeholder="label" name="label">
-                <input type="submit" value="Submit">
-              </form>
-            </div>
-            <div class="dropdown is-hidden">
-              <ul>
-                <li class="bio-container is-flex slide">
-                  <p class="band-members">{{members}}</p>
-                  <p class="bio">{{background}}</p>
-                  <h3 class="label-name">{{label}}</h3>
-                </li>
-                <li class="albums-container slide">
-                  <h2 albums-header>ALBUMS</h2>
-                  <div class="album-image-container is-flex">
-                    <div class="album-one-image">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                    </div>
-                    <div class="other-album-images is-flex">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
+          <!-- band template -->
         </ul>
       </section>
+    </script>
+    <!-- band -->
+    <script id="band-template" type="text/x-handlebars-template">
+      <li class="band-container is-flex">
+        <div class="artist is-flex">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+          <div class="display-name-container is-flex">
+            <h2 class="band-name">{{name}}</h2>
+            <div class="label-home-container is-flex">
+              <h3 class="genre-name basic-info">{{genre}}</h3>
+              <h3 class="hometown-name basic-info">{{hometown}}</h3>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="edit">edit</button>
+            <button class="delete">delete</button>
+          </div>
+          <form class="edit-artist-form is-hidden">
+            <input type="text" placeholder="image location" name="artist-location">
+            <input type="text" placeholder="name" name="artist-name">
+            <input type="text" placeholder="hometown" name="hometown">
+            <input type="text" placeholder="label" name="label">
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="dropdown is-hidden">
+          <ul>
+            <li class="bio-container is-flex slide">
+              <p class="band-members">{{members}}</p>
+              <p class="bio">{{background}}</p>
+              <h3 class="label-name">{{label}}</h3>
+            </li>
+            <li class="albums-container slide">
+              <h2 albums-header>ALBUMS</h2>
+              <div class="album-image-container is-flex">
+                <div class="album-one-image">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                </div>
+                <div class="other-album-images is-flex">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Emoji_u1f40b.svg/2000px-Emoji_u1f40b.svg.png" alt="whale">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
     </script>
 
     <!-- Labels -->
@@ -183,30 +197,35 @@
           <button class="cancel">cancel</button>
         </form>
         <ul class="labels">
-          <li>
-            <div class="label-item is-flex">
-              <img src="{{image}}" alt="{{name}}">
-              <div class="details is-flex">
-                <h3>{{name}}</h3>
-                <p>{{location}}</p>
-                <div class="actions">
-                  <button class="edit">edit</button>
-                  <button class="delete">delete</button>
-                </div>
-                <form class="edit-label-form is-hidden">
-                  <input type="text" placeholder="image location" name="img-location">
-                  <input type="text" placeholder="name" name="label-name">
-                  <input type="text" placeholder="hq location" name="hq-location">
-                  <input type="submit" value="Edit Label">
-                </form>
-              </div>
-            </div>
-          </li>
+          <!-- label template -->
         </ul>
       </section>
-  </script>
-  <script src="js/vendor/jquery-3.1.1.min.js"></script>
-  <script src="js/vendor/handlebars-v4.0.5.js"></script>
-  <script src="js/app.js"></script>
+    </script>
+    <!-- label -->
+    <script id="label-template" type="text/x-handlebars-template">
+      <li>
+        <div class="label-item is-flex">
+          <img src="{{image}}" alt="{{name}}">
+          <div class="details is-flex">
+            <h3>{{name}}</h3>
+            <p>{{location}}</p>
+            <div class="actions">
+              <button class="edit">edit</button>
+              <button class="delete">delete</button>
+            </div>
+            <form class="edit-label-form is-hidden">
+              <input type="text" placeholder="image location" name="img-location">
+              <input type="text" placeholder="name" name="label-name">
+              <input type="text" placeholder="hq location" name="hq-location">
+              <input type="submit" value="Edit Label">
+            </form>
+          </div>
+        </div>
+      </li>
+    </script>
+
+    <script src="js/vendor/jquery-3.1.1.min.js"></script>
+    <script src="js/vendor/handlebars-v4.0.5.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
