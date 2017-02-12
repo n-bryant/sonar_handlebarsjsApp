@@ -346,12 +346,40 @@ describe 'bands' do
     end
 
     context 'when an invalid band id is entered' do
-      it 'returns an unable to delete error ' do
-        last_band_id = Band.last.id
-        delete "/band/#{last_band_id + 1}"
+      it 'returns an unable to delete error' do
+        delete "/band/horse-dagger"
 
         expect(last_response.status).to eq 400
         expect(JSON.parse(last_response.body)).to eq 'No band with that id, unable to delete.'
+      end
+    end
+  end
+
+  describe "#post '/band/:id/rating'" do
+    context 'when a valid id is entered' do
+      it 'gives the band a rating' do
+        post '/band/1/rating', rating: 5
+
+        expect(last_response.status).to eq 201
+        expect(JSON.parse(last_response.body)['rating_avg']). to eq 5
+      end
+    end
+
+    context 'when an invalid id is entered' do
+      it 'returns an unable to rate error' do
+        post '/band/horse-dagger/rating', rating: 5
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No band with that id, unable to rate.'
+      end
+    end
+
+    context 'when a non-numeric raitng is entered' do
+      it 'returns an invalid rating error' do
+        post '/band/1/rating', rating: 'Face-Melting'
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'Rating should be a number.'
       end
     end
   end

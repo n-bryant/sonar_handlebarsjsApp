@@ -162,3 +162,14 @@ delete '/band/:id' do |id|
   band.destroy
   band.to_json
 end
+
+post '/band/:id/rating' do |id|
+  band = Band.find_by_id(id)
+  halt [400, 'No band with that id, unable to rate.'.to_json] if band.nil?
+
+  rating = params['rating']
+  halt [400, 'Rating should be a number.'.to_json] unless Validator.is_numeric?(rating)
+
+  band.update(rating_avg: rating)
+  [201, band.to_json]
+end

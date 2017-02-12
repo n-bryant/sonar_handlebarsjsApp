@@ -20,4 +20,8 @@ class Validator
   def self.genre_is_a_string?(genre)
     genre.class == String
   end
+
+  def self.is_numeric?(text)
+    text.to_f.to_s == text.to_s || text.to_i.to_s == text.to_s
+  end
 end
