@@ -68,6 +68,63 @@ h3 {
       color: $slate;
     }
   }
+
+  input {
+    &[type="submit"] {
+      color: $lightGrey;
+    }
+  }
+}
+
+// bands
+.band-list-container {
+  .add {
+    color: $sky;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .add-band-form {
+    input {
+      font-size: 1.5rem;
+
+      &[type="submit"] {
+        color: $lightGrey;
+
+        &:active {
+          color: $slate;
+        }
+      }
+    }
+
+    .cancel {
+      color: $sky;
+      text-decoration: underline;
+    }
+  }
+}
+
+.artist {
+  .actions {
+    button {
+      color: $sky;
+      text-decoration: underline;
+    }
+  }
+  .edit-artist-form {
+    input {
+      &[type="submit"] {
+        color: $lightGrey;
+
+        &:active {
+          color: $slate;
+        }
+      }
+    }
+  }
 }
 
 // labels
@@ -77,6 +134,14 @@ h3 {
     text-decoration: none;
   }
 
+  .details {
+    input {
+      &[type="submit"] {
+        color: $lightGrey;
+      }
+    }
+  }
+
   button {
     color: $sky;
     font-family: $primaryFont;
@@ -84,6 +149,20 @@ h3 {
 
     &:active {
       color: $slate;
+    }
+  }
+
+  .add-label-form {
+    input {
+      font-size: 1.5rem;
+
+      &[type="submit"] {
+        color: $lightGrey;
+
+        &:active {
+          color: $slate;
+        }
+      }
     }
   }
 }

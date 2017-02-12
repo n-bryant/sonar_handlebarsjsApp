@@ -8,6 +8,14 @@ body {
   width: 85%;
 }
 
+nav {
+  li {
+    &.active {
+      color: $lightGrey;
+    }
+  }
+}
+
 main {
   background: $lightGrey;
 
