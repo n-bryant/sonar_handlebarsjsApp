@@ -1,28 +1,76 @@
+.band-list-container {
+  .add-band-form {
+    align-items: center;
+    border: 1px solid $slate;
+    clear: both;
+    height: 300px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 2rem 0;
+    width: 50%;
+
+    input {
+      width: 85%;
+
+      &[type="submit"] {
+        background: $slate;
+
+        &:hover {
+          cursor: pointer;
+        }
+        &:active {
+          background: $lightGrey;
+          border: 1px solid $slate;
+        }
+      }
+    }
+    .cancel {
+      background: none;
+      border: none;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
 .band-container-list {
   height: 100%;
   width: 100%;
-  border: 1px solid red;
   flex-direction: column;
   justify-content: center;
 
   .band-container {
+    background: $lightGrey;
     width: 100%;
-    border: 1px solid black;
     flex-direction: column;
+
+    &:nth-of-type(even) {
+      background: $sky;
+    }
+    &:hover {
+      box-shadow: -10px 10px 5px $loading;
+      z-index: 2;
+    }
 
     img {
       width: 20%;
       height: 20%;
-      border: 1px solid black;
       // padding: 5px;
     }
     .display-name-container {
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      width: 70%;
+      width: 100%;
       .band-name {
         font-size: 4rem;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .label-home-container {
@@ -38,11 +86,13 @@
       margin: 0;
 
       .bio-container {
-        border: 1px solid black;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 0;
+        &:nth-of-type(odd) {
+          background: $sky;
+        }
 
         //  box-shadow: 10px 10px 5px #888888;
         .band-members {
@@ -64,7 +114,6 @@
 
         .album-image-container {
           flex-direction: row;
-          border: 1px solid black;
           width: 100%;
 
           .album-one-image {
@@ -74,27 +123,68 @@
             margin: 0;
 
             img {
-              border: 1px solid black;
               height: 100%;
               width: 100%;
               margin: 0;
+              &:hover {
+                box-shadow: -10px 10px 5px $loading;
+                z-index: 3;
+                transform: scale(1.05);
+              }
             }
           }
 
           .other-album-images {
             position: relative;
             flex-wrap: wrap;
-            border: 1px solid black;
             float: right;
             width: 50%;
 
             img {
-              border: 1px solid black;
               height: 50%;
               width: 50%;
               margin: 0;
+              &:hover {
+                box-shadow: -10px 10px 5px $loading;
+                z-index: 3;
+                transform: scale(1.05);
+              }
             }
           }
+        }
+      }
+    }
+  }
+}
+
+.artist {
+  .actions {
+    button {
+      background: none;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .edit-artist-form {
+    margin: 1rem 1rem 0 0;
+    input {
+      display: block;
+      margin-bottom: .5rem;
+
+      &[type="submit"] {
+        background: $slate;
+        border-radius: 0;
+
+        &:hover {
+          cursor: pointer;
+        }
+        &:active {
+          background: $lightGrey;
+          border: $slate;
         }
       }
     }
