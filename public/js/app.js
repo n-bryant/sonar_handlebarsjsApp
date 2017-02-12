@@ -1,4 +1,3 @@
-// handling navigation event handler conditional
 // loading screens
 // fill in spots for api urls
 // adjust constructors to receive api data
@@ -46,7 +45,11 @@
           };
           const html = template(context);
 
-          $('.band-container-list').prepend(html);
+          if (whichTemplate === 'featured-band') {
+            $('.band-list').prepend(html);
+          } else {
+            $('.band-container-list').prepend(html);
+          }
         }
       }
 
@@ -107,23 +110,9 @@
           // add active class to clicked li and remove the active class from its siblings
           $(this).addClass('active').siblings().removeClass('active');
           // $contentContainer.html('');
-          // generateTemplate(name);
+          generateTemplate(name);
           updateHash(name);
-
-          if (name === 'home') {
-            getFeaturedBandResults();
-          } else if (name === 'genres') {
-            getGenreResults();
-          } else if (name === 'bands') {
-            getBandResults();
-          } else {
-            getLabelResults();
-          }
         });
-        $('.home-btn img').on('click', function() {
-          generateTemplate('home');
-          updateHash('home');
-        })
 
         // search submission
         $('.search-form').on('submit', function() {
@@ -138,7 +127,7 @@
           $('.featured-name').html(name);
 
           let background = $(this).children('.band-background').html();
-          $('.featured-name').html(background);
+          $('.featured-bio').html(background);
         });
 
         /* Genre Tab Listeners */
@@ -238,20 +227,32 @@
         const html = template(context);
 
         $contentContainer.fadeOut('medium', function() {
-          $(this).html(html).fadeIn();
+          $(this).html(html).fadeIn(function() {
+            if (page === 'home') {
+              getFeaturedBandResults();
+            } else if (page === 'genres') {
+              getGenreResults();
+            } else if (page === 'bands') {
+              getBandResults();
+            } else {
+              getLabelResults();
+            }
+          });
         });
       }
 
       // gets top 6 band results data
       function getFeaturedBandResults() {
-        $.get(`interpolated api url`)
+        $.get('https://sonar-music-database.herokuapp.com/band')
           .then((response) => {
-            let featuredBands = response.results.splice(0, 6);
-
-            // creates new Band instance for each featured band
-            for (let index = 0; index < topRelated.length; index++) {
-              new Band(featuredBands[index], true);
-            }
+            console.log(JSON.parse(response)[0]);
+            new Band(JSON.parse(response)[0], true);
+            // let featuredBands = response.results.splice(0, 6);
+            //
+            // // creates new Band instance for each featured band
+            // for (let index = 0; index < topRelated.length; index++) {
+            //   new Band(featuredBands[index], true);
+            // }
           }).catch((error) => {
             console.log(error);
           });
@@ -330,7 +331,6 @@
       // initialize with binding of event listeners
       function init() {
         bindEvents();
-        generateTemplate('home');
 
         // setting template to be tab on refresh
         if (window.location.hash.length > 0) {
