@@ -119,10 +119,10 @@
         <h2>Artists</h2>
         <button class="add">add artist</button>
         <form class="add-band-form is-flex is-hidden">
-          <input type="text" placeholder="image location" name="artist-location">
-          <input type="text" placeholder="name" name="artist-name">
-          <input type="text" placeholder="hometown" name="hometown">
-          <input type="text" placeholder="label" name="label">
+          <input class="image-loc" type="text" placeholder="image location" name="artist-location">
+          <input class="band-name" type="text" placeholder="name" name="artist-name">
+          <input class="hometown" type="text" placeholder="hometown" name="hometown">
+          <input class="label-name" type="text" placeholder="label" name="label">
           <input type="submit" value="Add Artist">
           <button class="cancel">cancel</button>
         </form>
@@ -134,7 +134,7 @@
     <!-- band -->
     <script id="band-template" type="text/x-handlebars-template">
       <li class="band-container is-flex">
-        <div class="artist is-flex">
+        <div class="artist is-flex" data-id="{{id}}">
           <img src="{{image}}" alt="{{name}}">
           <div class="display-name-container is-flex">
             <h2 class="band-name">{{name}}</h2>
@@ -151,9 +151,9 @@
             <button class="delete">delete</button>
           </div>
           <form class="edit-artist-form is-hidden">
-            <input type="text" placeholder="image location" name="artist-location">
-            <input type="text" placeholder="name" name="artist-name">
-            <input type="text" placeholder="label" name="label">
+            <input class="image-loc" type="text" placeholder="image location" name="artist-location">
+            <input class="band-name" type="text" placeholder="name" name="artist-name">
+            <input class="label-name" type="text" placeholder="label" name="label">
             <input type="submit" value="Submit">
           </form>
         </div>

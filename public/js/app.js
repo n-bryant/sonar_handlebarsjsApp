@@ -13,6 +13,7 @@
 
       class Band {
         constructor(bandDetails, isFeatured) {
+          console.log(bandDetails);
           this.albums = bandDetails.albums;
           this.id = bandDetails.id;
           this.biography = bandDetails.biography;
@@ -180,6 +181,18 @@
         $contentContainer.on('click', '.artist .actions .edit', function() {
           $(this).parents('.actions').siblings('.edit-artist-form').slideToggle();
         });
+        // submitting edit artist form
+        $contentContainer.on('submit', '.edit-artist-form', function() {
+          // store user input
+          let artistID = $(this).parents('.artist').attr('data-id');
+          let tempObj = {};
+          tempObj.name = $(this).children('.band-name').val();
+          tempObj.imageLoc = $(this).children('.image-loc').val();
+          tempObj.labelNm = $(this).children('.label-name').val();
+
+          // pass input values to editArtist
+          editArtist(tempObj, artistID);
+        });
         // deleting artist item
         $contentContainer.on('click', '.artist .actions .delete', function() {
           $(this).parents('li').remove();
@@ -214,6 +227,47 @@
         // deleting label item
         $contentContainer.on('click', '.label-item .actions .delete', function() {
           $(this).parents('li').remove();
+        });
+      }
+
+      // add Band
+      function addBand() {
+
+      }
+
+      function editArtist(dataObj, bandID) {
+        const settings = {
+          method: 'PUT',
+          url: `https://sonar-music-database.herokuapp.com/band/${bandID}`,
+          headers: {
+            "content-type": "application/json;charset=utf-8"
+          },
+          data: JSON.stringify({
+            "biography": {},
+            "genres": [],
+            "image_path": dataObj.imageLoc,
+            "label": dataObj.labelNm,
+            "name": dataObj.name
+          })
+        };
+
+        $.ajax(settings).then((response) => {
+          // let user know edit was successful
+          $('<p>').text('Arist edited successfully').css({
+            position: 'absolute',
+            background: 'rgba(0,200,0,.75)',
+            width: '100%',
+            padding: '1rem',
+            color: '#fff',
+            top: 0,
+            left: 0,
+            textAlign: 'center'
+          }).appendTo('body').fadeOut(3000, function() {
+            this.remove();
+          });
+          console.log(response);
+        }).catch((error) => {
+          console.log(error);
         });
       }
 
