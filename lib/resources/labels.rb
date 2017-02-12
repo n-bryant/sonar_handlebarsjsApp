@@ -49,3 +49,11 @@ put '/label/:id' do |id|
 
   [200, label.to_json]
 end
+
+delete '/label/:id' do |id|
+  label = Label.find_by_id(id)
+  halt [400, 'No label with that id, unable to delete.'.to_json] if label.nil?
+
+  label.destroy
+  label.to_json
+end
