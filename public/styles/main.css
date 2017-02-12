@@ -93,16 +93,49 @@ h3 {
   text-decoration: underline; }
   .genres-container button:active {
     color: #303438; }
+.genres-container input[type="submit"] {
+  color: #cfcfcf; }
+
+.band-list-container .add {
+  color: #6991AC;
+  text-decoration: underline; }
+  .band-list-container .add:hover {
+    cursor: pointer; }
+.band-list-container .add-band-form input {
+  font-size: 1.5rem; }
+  .band-list-container .add-band-form input[type="submit"] {
+    color: #cfcfcf; }
+    .band-list-container .add-band-form input[type="submit"]:active {
+      color: #303438; }
+.band-list-container .add-band-form .cancel {
+  color: #6991AC;
+  text-decoration: underline; }
+
+.artist .actions button {
+  color: #6991AC;
+  text-decoration: underline; }
+.artist .edit-artist-form input[type="submit"] {
+  color: #cfcfcf; }
+  .artist .edit-artist-form input[type="submit"]:active {
+    color: #303438; }
 
 .labels-container h3 {
   font: 2.5rem "Metal Mania", cursive;
   text-decoration: none; }
+.labels-container .details input[type="submit"] {
+  color: #cfcfcf; }
 .labels-container button {
   color: #6991AC;
   font-family: "Open Sans", sans-serif;
   text-decoration: underline; }
   .labels-container button:active {
     color: #303438; }
+.labels-container .add-label-form input {
+  font-size: 1.5rem; }
+  .labels-container .add-label-form input[type="submit"] {
+    color: #cfcfcf; }
+    .labels-container .add-label-form input[type="submit"]:active {
+      color: #303438; }
 
 .loading-container {
   align-items: center;
@@ -139,6 +172,9 @@ body {
   margin: 0 auto;
   width: 85%; }
 
+nav li.active {
+  color: #cfcfcf; }
+
 main {
   background: #cfcfcf; }
   main .content-container {
@@ -154,7 +190,7 @@ main {
 header {
   background: #D75C37;
   padding: 2rem 2rem 1rem 2rem; }
-  header .home-btn:hover {
+  header .home-btn img:hover {
     cursor: pointer; }
 
 .logo {
@@ -202,11 +238,17 @@ nav ul {
     .genres-container .actions button {
       background: none;
       border: none; }
+  .genres-container input[type="submit"] {
+    background: #303438;
+    border-radius: 0;
+    margin-left: .5rem; }
+    .genres-container input[type="submit"]:hover {
+      cursor: pointer; }
 
 .genres-list {
   margin: 1rem auto auto 3rem;
   text-align: left;
-  width: 50%; }
+  width: 30%; }
   .genres-list .genre-bands {
     margin-bottom: 1rem; }
     .genres-list .genre-bands li {
@@ -216,10 +258,146 @@ nav ul {
         width: 50px; }
       .genres-list .genre-bands li span {
         margin-left: .5rem; }
+  .genres-list .edit-genre-form {
+    margin-top: .5rem;
+    padding-left: 1rem; }
+
+.add-genre-form .cancel {
+  background: none;
+  border: none;
+  margin-left: .5rem; }
+  .add-genre-form .cancel:hover {
+    cursor: pointer; }
+
+.genre-item button:hover {
+  cursor: pointer; }
+
+.band-list-container .add-band-form {
+  align-items: center;
+  border: 1px solid #303438;
+  clear: both;
+  height: 300px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 50%; }
+  .band-list-container .add-band-form input {
+    width: 85%; }
+    .band-list-container .add-band-form input[type="submit"] {
+      background: #303438; }
+      .band-list-container .add-band-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .band-list-container .add-band-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: 1px solid #303438; }
+  .band-list-container .add-band-form .cancel {
+    background: none;
+    border: none; }
+    .band-list-container .add-band-form .cancel:hover {
+      cursor: pointer; }
+
+.band-container-list {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center; }
+  .band-container-list .band-container {
+    background: #cfcfcf;
+    width: 100%;
+    flex-direction: column; }
+    .band-container-list .band-container:nth-of-type(even) {
+      background: #6991AC; }
+    .band-container-list .band-container:hover {
+      box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+      z-index: 2; }
+    .band-container-list .band-container img {
+      width: 20%;
+      height: 20%; }
+    .band-container-list .band-container .display-name-container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%; }
+      .band-container-list .band-container .display-name-container .band-name {
+        font-size: 4rem; }
+        .band-container-list .band-container .display-name-container .band-name:hover {
+          cursor: pointer; }
+      .band-container-list .band-container .display-name-container .label-home-container {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%; }
+        .band-container-list .band-container .display-name-container .label-home-container .basic-info {
+          text-decoration: none; }
+    .band-container-list .band-container .dropdown {
+      margin: 0; }
+      .band-container-list .band-container .dropdown .bio-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0; }
+        .band-container-list .band-container .dropdown .bio-container:nth-of-type(odd) {
+          background: #6991AC; }
+        .band-container-list .band-container .dropdown .bio-container .band-members {
+          padding-top: 2rem; }
+        .band-container-list .band-container .dropdown .bio-container .bio {
+          padding: 2rem; }
+        .band-container-list .band-container .dropdown .bio-container .label-name {
+          padding-bottom: 2rem;
+          text-decoration: none; }
+      .band-container-list .band-container .dropdown .albums-container {
+        margin: 0; }
+        .band-container-list .band-container .dropdown .albums-container .album-image-container {
+          flex-direction: row;
+          width: 100%; }
+          .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image {
+            position: relative;
+            float: left;
+            width: 50%;
+            margin: 0; }
+            .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img {
+              height: 100%;
+              width: 100%;
+              margin: 0; }
+              .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img:hover {
+                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+                z-index: 3;
+                transform: scale(1.05); }
+          .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images {
+            position: relative;
+            flex-wrap: wrap;
+            float: right;
+            width: 50%; }
+            .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img {
+              height: 50%;
+              width: 50%;
+              margin: 0; }
+              .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img:hover {
+                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+                z-index: 3;
+                transform: scale(1.05); }
+
+.artist .actions button {
+  background: none;
+  border: none; }
+  .artist .actions button:hover {
+    cursor: pointer; }
+.artist .edit-artist-form {
+  margin: 1rem 1rem 0 0; }
+  .artist .edit-artist-form input {
+    display: block;
+    margin-bottom: .5rem; }
+    .artist .edit-artist-form input[type="submit"] {
+      background: #303438;
+      border-radius: 0; }
+      .artist .edit-artist-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .artist .edit-artist-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: #303438; }
 
 .labels-container {
   margin: 2rem auto 0 auto;
-  padding-left: 15rem;
   text-align: center;
   width: 85%; }
 
@@ -233,6 +411,11 @@ nav ul {
   flex-direction: column;
   justify-content: center;
   width: 80%; }
+  .label-item .details input[type="submit"] {
+    background: #303438;
+    border-radius: 0; }
+    .label-item .details input[type="submit"]:hover {
+      cursor: pointer; }
 .label-item .actions {
   padding-top: 1rem;
   text-align: center; }
@@ -251,6 +434,31 @@ nav ul {
   margin-bottom: 1rem; }
   .add:hover {
     cursor: pointer; }
+
+.add-label-form {
+  align-items: center;
+  border: 1px solid #303438;
+  clear: both;
+  height: 300px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 50%; }
+  .add-label-form input {
+    width: 85%; }
+    .add-label-form input[type="submit"] {
+      background: #303438; }
+      .add-label-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .add-label-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: 1px solid #303438; }
+  .add-label-form .cancel {
+    background: none;
+    border: none; }
+    .add-label-form .cancel:hover {
+      cursor: pointer; }
 
 .is-flex {
   display: flex; }
