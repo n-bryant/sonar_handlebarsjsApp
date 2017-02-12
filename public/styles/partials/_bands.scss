@@ -39,26 +39,31 @@
 .band-container-list {
   height: 100%;
   width: 100%;
-  border: 1px solid red;
   flex-direction: column;
   justify-content: center;
 
   .band-container {
+    background: $lightGrey;
     width: 100%;
-    border: 1px solid black;
+    // border: 1px solid black;
     flex-direction: column;
+    &:nth-of-type(even) {
+      background: $sky;
+    }
+    &:hover {
+      box-shadow: -10px 10px 5px $loading;
+      z-index: 2;
+    }
 
     img {
       width: 20%;
       height: 20%;
-      border: 1px solid black;
-      // padding: 5px;
     }
     .display-name-container {
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      width: 70%;
+      width: 100%;
       .band-name {
         font-size: 4rem;
 
@@ -80,13 +85,14 @@
       margin: 0;
 
       .bio-container {
-        border: 1px solid black;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 0;
+        &:nth-of-type(odd) {
+          background: $sky;
+        }
 
-        //  box-shadow: 10px 10px 5px #888888;
         .band-members {
           padding-top: 2rem;
         }
@@ -106,7 +112,7 @@
 
         .album-image-container {
           flex-direction: row;
-          border: 1px solid black;
+          // border: 1px solid black;
           width: 100%;
 
           .album-one-image {
@@ -116,25 +122,33 @@
             margin: 0;
 
             img {
-              border: 1px solid black;
               height: 100%;
               width: 100%;
               margin: 0;
+              &:hover {
+                box-shadow: -10px 10px 5px $loading;
+                z-index: 3;
+                transform: scale(1.05);
+              }
             }
           }
 
           .other-album-images {
             position: relative;
             flex-wrap: wrap;
-            border: 1px solid black;
             float: right;
             width: 50%;
 
             img {
-              border: 1px solid black;
               height: 50%;
               width: 50%;
               margin: 0;
+              &:hover {
+                box-shadow: -10px 10px 5px $loading;
+                z-index: 3;
+                transform: scale(1.05);
+
+              }
             }
           }
         }
