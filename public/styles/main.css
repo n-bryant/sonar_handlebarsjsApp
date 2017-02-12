@@ -172,6 +172,9 @@ body {
   margin: 0 auto;
   width: 85%; }
 
+nav li.active {
+  color: #cfcfcf; }
+
 main {
   background: #cfcfcf; }
   main .content-container {
@@ -187,7 +190,7 @@ main {
 header {
   background: #D75C37;
   padding: 2rem 2rem 1rem 2rem; }
-  header .home-btn:hover {
+  header .home-btn img:hover {
     cursor: pointer; }
 
 .logo {
@@ -297,6 +300,7 @@ nav ul {
 .band-container-list {
   height: 100%;
   width: 100%;
+<<<<<<< HEAD
   border: 1px solid red;
   flex-direction: column;
   justify-content: center; }
@@ -308,11 +312,31 @@ nav ul {
       width: 20%;
       height: 20%;
       border: 1px solid black; }
+=======
+  flex-direction: column;
+  justify-content: center; }
+  .band-container-list .band-container {
+    background: #cfcfcf;
+    width: 100%;
+    flex-direction: column; }
+    .band-container-list .band-container:nth-of-type(even) {
+      background: #6991AC; }
+    .band-container-list .band-container:hover {
+      box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+      z-index: 2; }
+    .band-container-list .band-container img {
+      width: 20%;
+      height: 20%; }
+>>>>>>> master
     .band-container-list .band-container .display-name-container {
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+<<<<<<< HEAD
       width: 70%; }
+=======
+      width: 100%; }
+>>>>>>> master
       .band-container-list .band-container .display-name-container .band-name {
         font-size: 4rem; }
         .band-container-list .band-container .display-name-container .band-name:hover {
@@ -326,11 +350,19 @@ nav ul {
     .band-container-list .band-container .dropdown {
       margin: 0; }
       .band-container-list .band-container .dropdown .bio-container {
+<<<<<<< HEAD
         border: 1px solid black;
+=======
+>>>>>>> master
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 0; }
+<<<<<<< HEAD
+=======
+        .band-container-list .band-container .dropdown .bio-container:nth-of-type(odd) {
+          background: #6991AC; }
+>>>>>>> master
         .band-container-list .band-container .dropdown .bio-container .band-members {
           padding-top: 2rem; }
         .band-container-list .band-container .dropdown .bio-container .bio {
@@ -342,6 +374,7 @@ nav ul {
         margin: 0; }
         .band-container-list .band-container .dropdown .albums-container .album-image-container {
           flex-direction: row;
+<<<<<<< HEAD
           border: 1px solid black;
           width: 100%; }
           .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image {
@@ -365,6 +398,18 @@ nav ul {
               height: 50%;
               width: 50%;
               margin: 0; }
+=======
+          justify-content: center;
+          padding: 1rem;
+          width: 100%; }
+          .band-container-list .band-container .dropdown .albums-container .album-image-container img {
+            max-width: 200px;
+            width: 20%; }
+            .band-container-list .band-container .dropdown .albums-container .album-image-container img:hover {
+              box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+              z-index: 3;
+              transform: scale(1.05); }
+>>>>>>> master
 
 .artist .actions button {
   background: none;
