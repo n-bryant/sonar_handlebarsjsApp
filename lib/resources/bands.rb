@@ -50,6 +50,16 @@ get '/band/:id/discography' do |id|
   band.discography.to_json
 end
 
+get '/band/:id/images' do |id|
+  band = Band.find_by_id(id)
+  halt [404, 'No band found.'.to_json] if band.nil?
+
+  images = band.images
+  halt [400, 'No images found for that band.'.to_json] if images.empty?
+
+  images.to_json
+end
+
 post '/band' do
   label = Label.find_by(name: params['label']['name'])
   halt [400, 'Invalid label.'.to_json] if label.nil?

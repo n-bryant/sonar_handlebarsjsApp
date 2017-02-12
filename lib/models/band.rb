@@ -36,4 +36,26 @@ class Band < ActiveRecord::Base
       }
     end
   end
+
+  def images
+    # TODO: Make images table so I don't have to fake unique ids
+    id = 0
+    images = [{ file_path: self.biography.image_path, id: id += 1 }]
+
+    self.albums.map do |album|
+      images << { file_path: album.image, id: id += 1 }
+    end
+
+    # TODO: Is there a better way to test/convert NULL?
+    images = JSON.parse(images.to_json)
+    images = '' if band_has_no_images?(images)
+
+    images
+  end
+
+  def band_has_no_images?(images)
+    images.each { |image| return false unless image['file_path'].nil? }
+
+    true
+  end
 end

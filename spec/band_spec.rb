@@ -98,6 +98,35 @@ describe 'bands' do
     end
   end
 
+  describe "#get '/band/:id/images'" do
+    context 'when a band with images is entered' do
+      it 'returns all images for that band' do
+        get '/band/1/images'
+
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body).first['id']).to eq 1
+      end
+    end
+
+    context 'when a band with no images is entered' do
+      it 'returns a no images error' do
+        get '/band/2/images'
+        
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No images found for that band.'
+      end
+    end
+
+    context 'when an invalid id is entered' do
+      it 'returns a 404' do
+        get '/band/horse-dagger/images'
+
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)).to eq 'No band found.'
+      end
+    end
+  end
+
   describe "'#post /band'" do
     context 'when valid band information is entered' do
       it 'creates a new band' do
