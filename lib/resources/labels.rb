@@ -22,3 +22,17 @@ get '/label/:id/bands' do |id|
 
   bands.to_json
 end
+
+post '/label' do
+  label = Label.new(
+    headquarters: params['headquarters'],
+    homepage: params['homepage'],
+    logo_path: params['logo_path'],
+    name: params['name']
+  )
+  
+  halt [400, 'All fields are required.'.to_json] unless label.valid?
+
+  label.save
+  [201, label.to_json]
+end
