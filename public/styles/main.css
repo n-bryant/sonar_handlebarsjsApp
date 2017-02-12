@@ -349,33 +349,16 @@ nav ul {
         margin: 0; }
         .band-container-list .band-container .dropdown .albums-container .album-image-container {
           flex-direction: row;
+          justify-content: center;
+          padding: 1rem;
           width: 100%; }
-          .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image {
-            position: relative;
-            float: left;
-            width: 50%;
-            margin: 0; }
-            .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img {
-              height: 100%;
-              width: 100%;
-              margin: 0; }
-              .band-container-list .band-container .dropdown .albums-container .album-image-container .album-one-image img:hover {
-                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
-                z-index: 3;
-                transform: scale(1.05); }
-          .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images {
-            position: relative;
-            flex-wrap: wrap;
-            float: right;
-            width: 50%; }
-            .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img {
-              height: 50%;
-              width: 50%;
-              margin: 0; }
-              .band-container-list .band-container .dropdown .albums-container .album-image-container .other-album-images img:hover {
-                box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
-                z-index: 3;
-                transform: scale(1.05); }
+          .band-container-list .band-container .dropdown .albums-container .album-image-container img {
+            max-width: 200px;
+            width: 20%; }
+            .band-container-list .band-container .dropdown .albums-container .album-image-container img:hover {
+              box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+              z-index: 3;
+              transform: scale(1.05); }
 
 .artist .actions button {
   background: none;
