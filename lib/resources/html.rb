@@ -1,4 +1,3 @@
-require 'capybara'
 require 'json'
 require 'sinatra'
 require 'yaml'
