@@ -173,3 +173,11 @@ post '/band/:id/rating' do |id|
   band.update(rating_avg: rating)
   [201, band.to_json]
 end
+
+delete '/band/:id/rating' do |id|
+  band = Band.find_by_id(id)
+  halt [400, 'No band with that id, unable to delete the rating.'.to_json] if band.nil?
+
+  band.update(rating_avg: nil)
+  band.to_json
+end

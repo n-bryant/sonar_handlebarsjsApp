@@ -383,4 +383,24 @@ describe 'bands' do
       end
     end
   end
+
+  describe "#delete '/band/:id/rating'" do
+    context 'when a valid band id is entered' do
+      it 'deletes the rating for band' do
+        delete '/band/1/rating'
+
+        expect(last_response.status).to eq 200
+        expect(Band.find_by_id(1).rating_avg).to eq nil
+      end
+    end
+
+    context 'when an invalid band id is entered' do
+      it 'returns an unable to delete error' do
+        delete "/band/horse-dagger/rating"
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No band with that id, unable to delete the rating.'
+      end
+    end
+  end
 end
