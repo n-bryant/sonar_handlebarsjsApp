@@ -1,8 +1,8 @@
-// handling featured vs bands list
 // handling navigation event handler conditional
+// loading screens
 // fill in spots for api urls
 // adjust constructors to receive api data
-// handle adds/edits and ratings
+// handle adds/edits, ratings, and deletes
 
 (function() {
   "use strict"
@@ -13,38 +13,45 @@
       const $contentContainer = $('.content-container');
 
       class Band {
-        constructor() {
-          this.active = true;
-          this.albums = [{ "id": 1, "name": "Monument"}, { "id": 2, "name": "Carving Desert Canyons" }];
-          this.id = 1;
-          this.biography = { background: "Scale the Summit is an American instrumental progressive metal band based out of Houston, Texas.", hometown: 'NYC, NY', members: ["Chris Letchford, Charlie Engen"], originDate: "2004" };
-          this.genres = ["Progressive Metal, Instrumental Rock"];
-          this.image = "https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg";
-          this.label = "Prosthetic Records";
-          this.name = 'Scale the Summit';
-          this.build();
+        constructor(bandDetails, isFeatured) {
+          this.albums = bandDetails.albums;
+          this.id = bandDetails.id;
+          this.biography = bandDetails.biography;
+          this.featured = isFeatured;
+          this.genres = bandDetails.genres;
+          this.image = bandDetails.biography.image_path;
+          this.label = bandDetails.label.name;
+          this.name = bandDetails.name;
+          this.build(this.featured);
         }
 
-        build() {
-          const source = $('#band-template').html(); // home or band
+        build(featured) {
+          let whichTemplate = '';
+          if (this.featured) {
+            whichTemplate = 'featured-band';
+          } else {
+            whichTemplate = 'band';
+          }
+
+          const source = $(`#${whichTemplate}-template`).html(); // home or band
           const template = Handlebars.compile(source);
           const context = {
             id: this.id,
+            albums: this.albums,
             image: this.image,
             name: this.name,
             genre: this.genres,
-            hometown: this.biography.hometown,
+            members: this.biography.members,
             background: this.biography.background
           };
-          // console.log(context);
           const html = template(context);
 
-          $contentContainer.prepend(html);
+          $('.band-container-list').prepend(html);
         }
       }
 
       class Genre {
-        constructor() {
+        constructor(genreDetails) {
           this.id = 1;
           this.name = 'Progressive Metal';
           this.bands = [{name: 'Band 1', image: 'https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg'}, {name: 'Band 2', image: 'https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg'}, {name: 'Band 3', image: 'https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg'}];
@@ -62,12 +69,12 @@
           console.log(context);
           const html = template(context);
 
-          $contentContainer.prepend(html);
+          $('.genres-list').prepend(html);
         }
       }
 
       class Label {
-        constructor() {
+        constructor(labelDetails) {
           this.id = 1;
           this.image = 'https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg';
           this.location = 'New York City, NY';
@@ -86,7 +93,7 @@
           }
           const html = template(context);
 
-          $contentContainer.prepend(html);
+          $('.labels').prepend(html);
         }
       }
 
@@ -99,19 +106,19 @@
 
           // add active class to clicked li and remove the active class from its siblings
           $(this).addClass('active').siblings().removeClass('active');
-          $contentContainer.html('');
-          generateTemplate(name);
+          // $contentContainer.html('');
+          // generateTemplate(name);
           updateHash(name);
 
-          // if (name === 'home') {
-          //   getFeaturedBandResults();
-          // } else if (name === 'genres') {
-          //   getGenreResults();
-          // } else if (name === 'bands') {
-          //   getBandResults();
-          // } else {
-          //   getLabelResults();
-          // }
+          if (name === 'home') {
+            getFeaturedBandResults();
+          } else if (name === 'genres') {
+            getGenreResults();
+          } else if (name === 'bands') {
+            getBandResults();
+          } else {
+            getLabelResults();
+          }
         });
         $('.home-btn img').on('click', function() {
           generateTemplate('home');
@@ -123,6 +130,15 @@
           event.preventDefault();
           console.log(document.querySelector('.search').value);
           this.reset();
+        });
+
+        /* Featured Band Widget Listeners */
+        $contentContainer.on('click', '.band-list .band-item', function() {
+          let name = $(this).children('.band-name').html();
+          $('.featured-name').html(name);
+
+          let background = $(this).children('.band-background').html();
+          $('.featured-name').html(background);
         });
 
         /* Genre Tab Listeners */
@@ -234,7 +250,7 @@
 
             // creates new Band instance for each featured band
             for (let index = 0; index < topRelated.length; index++) {
-              new Band(featuredBands[index]);
+              new Band(featuredBands[index], true);
             }
           }).catch((error) => {
             console.log(error);
@@ -243,12 +259,14 @@
 
       // gets all band data
       function getBandResults() {
-        $.get(`interpolated api url`)
+        $.get('https://sonar-music-database.herokuapp.com/band')
           .then((response) => {
-            let count = response.results.length;
-            for (let index = 0; index < count; index++) {
-              new Band();
-            }
+            console.log(JSON.parse(response)[0]);
+            new Band(JSON.parse(response)[0], false);
+            // let count = response.results.length;
+            // for (let index = 0; index < count; index++) {
+            //   new Band(response.results, false);
+            // }
           }).catch((error) => {
             console.log(error);
           });
@@ -256,11 +274,11 @@
 
       // gets all genres data
       function getGenreResults() {
-        $.get(`interpolated api url`)
+        $.get()
           .then((response) => {
             let count = response.results.length;
             for (let index = 0; index < count; index++) {
-              new Genre();
+              new Genre(response.results);
             }
           }).catch((error) => {
             console.log(error);
@@ -273,7 +291,7 @@
           .then((response) => {
             let count = response.results.length;
             for (let index = 0; index < count; index++) {
-              new Label();
+              new Label(response.results);
             }
           }).catch((error) => {
             console.log(error);
