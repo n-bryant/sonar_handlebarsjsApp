@@ -81,7 +81,7 @@
                 <h2>Genres:</h2>
                 <button class="add">add genre</button>
                 <form class="add-genre-form is-flex is-hidden">
-                    <input type="text" placeholder="name" name="genre-name">
+                    <input class="genre-name" type="text" placeholder="name" name="genre-name">
                     <input type="submit" value="Add Genre">
                     <button class="cancel">cancel</button>
                 </form>
@@ -91,26 +91,26 @@
             </section>
         </script>
         <!-- genre -->
-        <script id="#genre-template" type="text/x-handlebars-template">
+        <script id="genre-template" type="text/x-handlebars-template">
             <!-- item for each genre -->
             <li class="genre-item">
-                <h3 class="genre-title" data-id="{{id}}">{{name}}</h3>
-                <div class="genre-details-container is-hidden">
+                <h3 class="genre-title">{{name}}</h3>
+                <div class="genre-details-container is-hidden" data-id="{{id}}">
                     <div class="actions">
                         <button class="edit">edit</button>
                         <button class="delete">delete</button>
                     </div>
                     <form class="edit-genre-form is-hidden">
-                        <input type="text" placeholder="genre name">
+                        <input class="genre-name" type="text" placeholder="genre name">
                         <input type="submit" value="submit">
                     </form>
                     <ul class="genre-bands">
-                        {{#each bands}}
+                        <!-- {{#each bands}}
                         <li class="is-flex">
                             <image src="{{image}}">
                                 <span>{{name}}</span>
                         </li>
-                        {{/each}}
+                        {{/each}} -->
                     </ul>
                 </div>
             </li>
