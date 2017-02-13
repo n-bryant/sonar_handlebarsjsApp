@@ -402,10 +402,10 @@
             }
 
             // delete artist function
-            function deleteArtist(artistId) {
+            function deleteArtist(artistID) {
                 const deleteLabel = {
                     method: 'DELETE',
-                    url: `https://sonar-music-database.herokuapp.com/band/${artistId}`,
+                    url: `https://sonar-music-database.herokuapp.com/band/${artistID}`,
                     headers: {
                         'content-type': 'application/json;charset=utf-8'
                     }
