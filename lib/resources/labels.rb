@@ -43,11 +43,11 @@ put '/label/:id' do |id|
   label = Label.find_by_id(id)
   halt [400, 'Label not found.'.to_json] if label.nil?
   parsed_params = JSON.parse(params)
-  
-  params.delete('splat')
-  params.delete('captures')
 
-  updated = label.update(params)
+  parsed_params.delete('splat')
+  parsed_params.delete('captures')
+
+  updated = label.update(parsed_params)
   halt [400, 'Fields cannot be blank.'.to_json] unless updated
 
   [200, label.to_json]
