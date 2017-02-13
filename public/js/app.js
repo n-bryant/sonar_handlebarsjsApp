@@ -4,10 +4,10 @@
 // handle adds/edits, ratings, and deletes
 
 (function() {
-    "use strict";
+"use strict";
 
-    // wait for page to load to execute
-    $(document).ready(() => {
+// wait for page to load to execute
+$(document).ready(() => {
         const sonarModule = function() {
             const $contentContainer = $('.content-container');
 
@@ -205,6 +205,7 @@
                 });
                 // submitting edit artist form
                 $contentContainer.on('submit', '.edit-artist-form', function() {
+                    event.preventDefault();
                     // store user input
                     let artistID = $(this).parents('.artist').attr('data-id');
                     let tempObj = {};
@@ -214,6 +215,7 @@
 
                     // pass input values to editArtist
                     editArtist(tempObj, artistID);
+                    this.reset();
                 });
                 // deleting artist item
                 $contentContainer.on('click', '.artist .actions .delete', function() {
@@ -235,272 +237,339 @@
                     $('.labels').toggle();
                 });
                 // submitting add label form
-                $contentContainer.on('submit', '.add-label-form', function() {
-                    event.preventDefault();
-                    console.log(event.target[0].value);
-                    console.log(event.target[1].value);
-                    console.log(event.target[2].value);
-                    this.reset();
-                });
-                // editing label item
-                $contentContainer.on('click', '.label-item .actions .edit', function() {
-                    $(this).parents('.actions').siblings('.edit-label-form').slideToggle();
-                });
-                // deleting label item
-                $contentContainer.on('click', '.label-item .actions .delete', function() {
-                    $(this).parents('li').remove();
-                });
-            }
+                // $contentContainer.on('submit', '.add-label-form', function() {
+                //     event.preventDefault();
+                //     let tempObj = {};
+                //     tempObj.headquarters = $(this).children('.headquarters').val();
+                //     tempObj.homepage = $(this).children('.homepage').val();
+                //     tempobj.logo_path = $(this).children('.image-loc').val();
+                //     tempobj.name = $(this).children('.image-loc').val();
+                //     addLabel(tempObj);
+                //     this.reset();
+            });
+        // editing label item
+        $contentContainer.on('click', '.label-item .actions .edit', function() {
+            $(this).parents('.actions').siblings('.edit-label-form').slideToggle();
+        });
+        // deleting label item
+        // $contentContainer.on('click', '.label-item .actions .delete', function() {
+        //     $(this).parents('li').remove();
+        //     deleteLabel($(this).parents('.details').attr('data-id'));
+        // });
+    }
+    // //delete label function
+    // function deleteLabel(label) {
+    //     const delete = {
+    //         method: 'delete',
+    //         url: `https://sonar-music-database.herokuapp.com/label/${label.id}`,
+    //         headers: {
+    //             'content-type': 'application/json;charset=utf-8'
+    //         }
+    //     };
+    //     $.ajax(deleteLabel).then((response) => {
+    //         // let user know edit was successful
+    //         $('<p>').text('Label deleted successfully').css({
+    //             position: 'absolute',
+    //             background: 'rgba(0,200,0,.75)',
+    //             width: '100%',
+    //             padding: '1rem',
+    //             color: '#fff',
+    //             top: 0,
+    //             left: 0,
+    //             textAlign: 'center'
+    //         }).appendTo('body').fadeOut(3000, function() {
+    //             this.remove();
+    //         });
+    //         console.log(response);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // }
+    //
+    // // add label function
+    // function addLabel(input) {
+    //
+    //     const addLAbel = {
+    //         method: 'POST',
+    //         url: "https://sonar-music-database.herokuapp.com/label/add",
+    //         headers: {
+    //             'content-type': 'application/json;charset=utf-8'
+    //         },
+    //         data: JSON.stringify({
+    //             "headquarters": input.headquarters,
+    //             "homepage": input.homepage,
+    //             "logo_path": input.logo_path,
+    //             "name": input.name
+    //         })
+    //     };
+    //     $.ajax(addLabel).then((response) => {
+    //         // let user know edit was successful
+    //         $('<p>').text('Label added successfully').css({
+    //             position: 'absolute',
+    //             background: 'rgba(0,200,0,.75)',
+    //             width: '100%',
+    //             padding: '1rem',
+    //             color: '#fff',
+    //             top: 0,
+    //             left: 0,
+    //             textAlign: 'center'
+    //         }).appendTo('body').fadeOut(3000, function() {
+    //             this.remove();
+    //         });
+    //         console.log(response);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // }
+    // add band function
+    function addBand(input) {
 
-            // add band function
-            function addBand(input) {
+        const addArtist = {
+            method: 'POST',
+            url: "https://sonar-music-database.herokuapp.com/band/add",
+            headers: {
+                "content-type": "application/json;charset=utf-8"
+            },
+            data: JSON.stringify({
+                "biography": {},
+                "genres": [],
+                "image_path": input.imageLoc,
+                "label": input.label,
+                "name": input.name
+            })
+        };
+        $.ajax(addArtist).then((response) => {
+            // let user know edit was successful
+            $('<p>').text('Arist added successfully').css({
+                position: 'absolute',
+                background: 'rgba(0,200,0,.75)',
+                width: '100%',
+                padding: '1rem',
+                color: '#fff',
+                top: 0,
+                left: 0,
+                textAlign: 'center'
+            }).appendTo('body').fadeOut(3000, function() {
+                this.remove();
+            });
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
-                const addArtist = {
-                    method: 'POST',
-                    url: "https://sonar-music-database.herokuapp.com/band/add",
-                    headers: {
-                        "content-type": "application/json;charset=utf-8"
-                    },
-                    data: JSON.stringify({
-                        "biography": {},
-                        "genres": [],
-                        "image_path": input.imageLoc,
-                        "label": input.label,
-                        "name": input.name
-                    })
-                };
-                $.ajax(addArtist).then((response) => {
-                    // let user know edit was successful
-                    $('<p>').text('Arist added successfully').css({
-                        position: 'absolute',
-                        background: 'rgba(0,200,0,.75)',
-                        width: '100%',
-                        padding: '1rem',
-                        color: '#fff',
-                        top: 0,
-                        left: 0,
-                        textAlign: 'center'
-                    }).appendTo('body').fadeOut(3000, function() {
-                        this.remove();
-                    });
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            }
-
-            function editArtist(dataObj, bandID) {
-                const settings = {
-                    method: 'PUT',
-                    url: `https://sonar-music-database.herokuapp.com/band/${bandID}`,
-                    headers: {
-                        "content-type": "application/json;charset=utf-8"
-                    },
-                    data: JSON.stringify({
-                        "biography": {},
-                        "genres": [],
-                        "image_path": dataObj.imageLoc,
-                        "label": dataObj.labelNm,
-                        "name": dataObj.name
-                    })
-                };
-
-                $.ajax(settings).then((response) => {
-                    // let user know edit was successful
-                    $('<p>').text('Arist edited successfully').css({
-                        position: 'absolute',
-                        background: 'rgba(0,200,0,.75)',
-                        width: '100%',
-                        padding: '1rem',
-                        color: '#fff',
-                        top: 0,
-                        left: 0,
-                        textAlign: 'center'
-                    }).appendTo('body').fadeOut(3000, function() {
-                        this.remove();
-                    });
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            }
-
-            // gnerate a page template
-            function generateTemplate(page) {
-                const whichTemplate = page;
-                const source = $(`#${whichTemplate}-template`).html();
-                const template = Handlebars.compile(source);
-                let context = {};
-
-                const html = template(context);
-
-                $contentContainer.fadeOut('medium', function() {
-                    $(this).html(html).fadeIn(function() {
-                        if (page === 'home') {
-                            getFeaturedBandResults();
-                        } else if (page === 'genres') {
-                            getGenreResults();
-                        } else if (page === 'bands') {
-                            getBandResults();
-                        } else {
-                            getLabelResults();
-                        }
-                    });
-                });
-            }
-
-            // gets top 6 band results data
-            function getFeaturedBandResults() {
-                $.get('https://sonar-music-database.herokuapp.com/band')
-                    .then((response) => {
-                        console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], true);
-                        // let featuredBands = response.results.splice(0, 6);
-                        //
-                        // // creates new Band instance for each featured band
-                        // for (let index = 0; index < topRelated.length; index++) {
-                        //   new Band(featuredBands[index], true);
-                        // }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets all band data
-            function getBandResults() {
-                $.get('https://sonar-music-database.herokuapp.com/band')
-                    .then((response) => {
-                        console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], false);
-                        // let count = response.results.length;
-                        // for (let index = 0; index < count; index++) {
-                        //   new Band(response.results, false);
-                        // }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets all genres data
-            function getGenreResults() {
-                $.get()
-                    .then((response) => {
-                        let count = response.results.length;
-                        for (let index = 0; index < count; index++) {
-                            new Genre(response.results);
-                        }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets top 6 band results data
-            function getFeaturedBandResults() {
-                $.get('https://sonar-music-database.herokuapp.com/band')
-                    .then((response) => {
-                        // console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], true);
-                        // let featuredBands = response.results.splice(0, 6);
-                        //
-                        // // creates new Band instance for each featured band
-                        // for (let index = 0; index < topRelated.length; index++) {
-                        //   new Band(featuredBands[index], true);
-                        // }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets all band data
-            function getBandResults() {
-                $.get('https://sonar-music-database.herokuapp.com/band')
-                    .then((response) => {
-                        // console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], false);
-                        // let count = response.results.length;
-                        // for (let index = 0; index < count; index++) {
-                        //   new Band(response.results, false);
-                        // }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets all genres data
-            function getGenreResults() {
-                $.get()
-                    .then((response) => {
-                        let count = response.results.length;
-                        for (let index = 0; index < count; index++) {
-                            new Genre(response.results);
-                        }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets all labels data
-            function getLabelResults() {
-                $.get(`interpolated api url`)
-                    .then((response) => {
-                        let count = response.results.length;
-                        for (let index = 0; index < count; index++) {
-                            new Label(response.results);
-                        }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            // gets search result data
-            function getSearchResults(query) {
-                query = encodeURICompontent(query);
-                $.get(`interpolated api url`)
-                    .then((response) => {
-                        console.log(response.results[0]);
-                        new Whatever(response.results[0]);
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            }
-
-            function rateAdd(rating, bandID) {
-                //
-            }
-
-            function rateDelete(bandID) {
-                $.ajax({
-
-                }).then((response) => {
-
-                });
-            }
-
-            // updates window hash
-            function updateHash(hash) {
-                window.location.hash = hash;
-            }
-
-            // initialize with binding of event listeners
-            function init() {
-                bindEvents();
-
-                // setting template to be tab on refresh
-                if (window.location.hash.length > 0) {
-                    const hashName = window.location.hash.replace('#', '');
-                    generateTemplate(hashName);
-                    $(`li[data-name=${hashName}]`).addClass('active');
-                } else {
-                    generateTemplate('home');
-                }
-            }
-
-            return {
-                init: init
-            };
+    function editArtist(dataObj, bandID) {
+        const settings = {
+            method: 'PUT',
+            url: `https://sonar-music-database.herokuapp.com/band/${bandID}`,
+            headers: {
+                "content-type": "application/json;charset=utf-8"
+            },
+            data: JSON.stringify({
+                "biography": {},
+                "genres": [],
+                "image_path": dataObj.imageLoc,
+                "label": dataObj.labelNm,
+                "name": dataObj.name
+            })
         };
 
-        const sonarApp = sonarModule();
-        sonarApp.init();
-    });
+        $.ajax(settings).then((response) => {
+            // let user know edit was successful
+            $('<p>').text('Arist edited successfully').css({
+                position: 'absolute',
+                background: 'rgba(0,200,0,.75)',
+                width: '100%',
+                padding: '1rem',
+                color: '#fff',
+                top: 0,
+                left: 0,
+                textAlign: 'center'
+            }).appendTo('body').fadeOut(3000, function() {
+                this.remove();
+            });
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    // gnerate a page template
+    function generateTemplate(page) {
+        const whichTemplate = page;
+        const source = $(`#${whichTemplate}-template`).html();
+        const template = Handlebars.compile(source);
+        let context = {};
+
+        const html = template(context);
+
+        $contentContainer.fadeOut('medium', function() {
+            $(this).html(html).fadeIn(function() {
+                if (page === 'home') {
+                    getFeaturedBandResults();
+                } else if (page === 'genres') {
+                    getGenreResults();
+                } else if (page === 'bands') {
+                    getBandResults();
+                } else {
+                    getLabelResults();
+                }
+            });
+        });
+    }
+
+    // gets top 6 band results data
+    function getFeaturedBandResults() {
+        $.get('https://sonar-music-database.herokuapp.com/band')
+            .then((response) => {
+                console.log(JSON.parse(response)[0]);
+                new Band(JSON.parse(response)[0], true);
+                // let featuredBands = response.results.splice(0, 6);
+                //
+                // // creates new Band instance for each featured band
+                // for (let index = 0; index < topRelated.length; index++) {
+                //   new Band(featuredBands[index], true);
+                // }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets all band data
+    function getBandResults() {
+        $.get('https://sonar-music-database.herokuapp.com/band')
+            .then((response) => {
+                console.log(JSON.parse(response)[0]);
+                new Band(JSON.parse(response)[0], false);
+                // let count = response.results.length;
+                // for (let index = 0; index < count; index++) {
+                //   new Band(response.results, false);
+                // }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets all genres data
+    function getGenreResults() {
+        $.get()
+            .then((response) => {
+                let count = response.results.length;
+                for (let index = 0; index < count; index++) {
+                    new Genre(response.results);
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets top 6 band results data
+    function getFeaturedBandResults() {
+        $.get('https://sonar-music-database.herokuapp.com/band')
+            .then((response) => {
+                // console.log(JSON.parse(response)[0]);
+                new Band(JSON.parse(response)[0], true);
+                // let featuredBands = response.results.splice(0, 6);
+                //
+                // // creates new Band instance for each featured band
+                // for (let index = 0; index < topRelated.length; index++) {
+                //   new Band(featuredBands[index], true);
+                // }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets all band data
+    function getBandResults() {
+        $.get('https://sonar-music-database.herokuapp.com/band')
+            .then((response) => {
+                // console.log(JSON.parse(response)[0]);
+                new Band(JSON.parse(response)[0], false);
+                // let count = response.results.length;
+                // for (let index = 0; index < count; index++) {
+                //   new Band(response.results, false);
+                // }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets all genres data
+    function getGenreResults() {
+        $.get()
+            .then((response) => {
+                let count = response.results.length;
+                for (let index = 0; index < count; index++) {
+                    new Genre(response.results);
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets all labels data
+    function getLabelResults() {
+        $.get(`interpolated api url`)
+            .then((response) => {
+                let count = response.results.length;
+                for (let index = 0; index < count; index++) {
+                    new Label(response.results);
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    // gets search result data
+    function getSearchResults(query) {
+        query = encodeURICompontent(query);
+        $.get(`interpolated api url`)
+            .then((response) => {
+                console.log(response.results[0]);
+                new Whatever(response.results[0]);
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    function rateAdd(rating, bandID) {
+        //
+    }
+
+    function rateDelete(bandID) {
+        $.ajax({
+
+        }).then((response) => {
+
+        });
+    }
+
+    // updates window hash
+    function updateHash(hash) {
+        window.location.hash = hash;
+    }
+
+    // initialize with binding of event listeners
+    function init() {
+        bindEvents();
+
+        // setting template to be tab on refresh
+        if (window.location.hash.length > 0) {
+            const hashName = window.location.hash.replace('#', '');
+            generateTemplate(hashName);
+            $(`li[data-name=${hashName}]`).addClass('active');
+        } else {
+            generateTemplate('home');
+        }
+    }
+
+    return {
+        init: init
+    };
+};
+
+const sonarApp = sonarModule();
+sonarApp.init();
+});
 })();
