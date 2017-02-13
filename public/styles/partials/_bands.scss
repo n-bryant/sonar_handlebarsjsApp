@@ -2,8 +2,7 @@
   .add-band-form {
     align-items: center;
     border: 1px solid $slate;
-    clear: both;
-    height: 300px;
+    clear: both; 
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
@@ -49,6 +48,7 @@
 
     &:nth-of-type(even) {
       background: $slate;
+      color: $lightGrey;
     }
     &:hover {
       box-shadow: -10px 10px 5px $loading;
@@ -92,6 +92,7 @@
         margin: 0;
         &:nth-of-type(odd) {
           background: $slate;
+          color: $lightGrey;
         }
 
         //  box-shadow: 10px 10px 5px #888888;
