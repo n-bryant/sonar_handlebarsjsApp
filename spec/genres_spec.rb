@@ -1,5 +1,7 @@
 require 'resources/genres'
 
+# TODO: Write tests that mirror the way params are passed in on live site
+
 describe 'genres' do
 
   describe "#get '/genre'" do
