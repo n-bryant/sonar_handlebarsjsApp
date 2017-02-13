@@ -262,7 +262,7 @@ $(document).ready(() => {
                 tempObj.headquarters = $(this).children('.location').val();
                 tempObj.homepage = $(this).children('.homepage').val();
                 tempObj.logo_path = $(this).children('.image-loc').val();
-                tempObj.name = $(this).children('.image-loc').val();
+                tempObj.name = $(this).children('.label-name').val();
 
                 addLabel(tempObj);
                 this.reset();
