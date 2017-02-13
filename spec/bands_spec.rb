@@ -35,7 +35,7 @@ describe 'bands' do
 
   describe "#get '/band'" do
     it 'returns a list of all bands' do
-      get '/band'
+      get '/band', 'Scale'
 
       expect(last_response.status).to eq 200
       expect(JSON.parse(last_response.body).empty?).to eq false
