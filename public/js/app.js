@@ -199,22 +199,22 @@
                 });
                 //submit add Band form
                 $contentContainer.on('submit', '.add-band-form', function() {
-                    event.preventDefault();
-                    let tempObj = {};
-                    tempObj.imageLoc = $(this).children('.image-loc').val();
-                    tempObj.name = $(this).children('.band-name').val();
-                    tempObj.hometown = $(this).children('.hometown').val();
-                    tempObj.biography = $(this).children('.biography').val();
-                    tempObj.members = $(this).children('.members').val();
-                    tempObj.genre1 = $(this).children('.genre1').val();
-                    tempObj.genre2 = $(this).children('.genre2').val();
-                    tempObj.label = $(this).children('.label-name').val();
-                    tempObj.originDate = $(this).children('.origin-date').val();
-                    tempObj.active = $(this).children('.active').prop('checked') ? 1 : 0;
-                    console.log(tempObj);
-                    addBand(tempObj);
-                    this.reset();
-                });
+                   event.preventDefault();
+                   let tempObj = {};
+                   tempObj.imageLoc = $(this).children('.image-loc').val();
+                   tempObj.name = $(this).children('.band-name').val();
+                   tempObj.hometown = $(this).children('.hometown').val();
+                   tempObj.biography = $(this).children('.biography').val();
+                   tempObj.members = $(this).children('.members').val();
+                   tempObj.genre1 = $(this).children('.genre1').val();
+                   tempObj.genre2 = $(this).children('.genre2').val();
+                   tempObj.label = $(this).children('.label-name').val();
+                   tempObj.originDate = $(this).children('.origin-date').val();
+                   tempObj.active = $(this).children('.active').prop('checked') ? true : false;
+                   console.log(tempObj);
+                   addBand(tempObj);
+                   this.reset();
+               });
                 // editing arist item
                 $contentContainer.on('click', '.artist .actions .edit', function() {
                     $(this).parents('.actions').siblings('.edit-artist-form').slideToggle();
