@@ -213,7 +213,6 @@ $(document).ready(() => {
                    tempObj.label = $(this).children('.label-name').val();
                    tempObj.originDate = $(this).children('.origin-date').val();
                    tempObj.active = $(this).children('.active').prop('checked') ? true : false;
-                   console.log(tempObj);
                    addBand(tempObj);
                    this.reset();
                });
@@ -316,6 +315,7 @@ $(document).ready(() => {
                        "name": input.name
                    })
                };
+               console.log(addArtist.data);
                $.ajax(addArtist).then((response) => {
                    // let user know edit was successful
                    $('<p>').text('Arist added successfully').css({
