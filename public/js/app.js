@@ -4,10 +4,10 @@
 // handle adds/edits, ratings, and deletes
 
 (function() {
-"use strict";
+    "use strict";
 
-// wait for page to load to execute
-$(document).ready(() => {
+    // wait for page to load to execute
+    $(document).ready(() => {
         const sonarModule = function() {
             const $contentContainer = $('.content-container');
 
@@ -238,16 +238,16 @@ $(document).ready(() => {
                 });
                 // submitting add label form
                 $contentContainer.on('submit', '.add-label-form', function() {
-                event.preventDefault();
-                let tempObj = {};
+                    event.preventDefault();
+                    let tempObj = {};
 
-                tempObj.headquarters = $(this).children('.headquarters').val();
-                tempObj.homepage = $(this).children('.homepage').val();
-                tempobj.logo_path = $(this).children('.image-loc').val();
-                tempobj.name = $(this).children('.image-loc').val();
+                    tempObj.headquarters = $(this).children('.headquarters').val();
+                    tempObj.homepage = $(this).children('.homepage').val();
+                    tempobj.logo_path = $(this).children('.image-loc').val();
+                    tempobj.name = $(this).children('.image-loc').val();
 
-                addLabel(tempObj);
-                this.reset();
+                    addLabel(tempObj);
+                    this.reset();
                 });
                 // editing label item
                 $contentContainer.on('click', '.label-item .actions .edit', function() {
@@ -268,10 +268,7 @@ $(document).ready(() => {
                     editLabel(tempObj, labelID);
                     this.reset();
                 });
-                // deleting label item
-                $contentContainer.on('click', '.label-item .actions .delete', function() {
-                    $(this).parents('li').remove();
-                });
+
                 // deleting label item
                 $contentContainer.on('click', '.label-item .actions .delete', function() {
                     $(this).parents('li').remove();
@@ -573,7 +570,7 @@ $(document).ready(() => {
             function getLabelResults() {
                 $.get('https://sonar-music-database.herokuapp.com/label')
                     .then((response) => {
-                      new Label(JSON.parse(response)[0]);
+                        new Label(JSON.parse(response)[0]);
                         // let count = response.results.length;
                         // for (let index = 0; index < count; index++) {
                         //     new Label(response.results);
@@ -616,22 +613,22 @@ $(document).ready(() => {
             function init() {
                 bindEvents();
 
-        // setting template to be tab on refresh
-        if (window.location.hash.length > 0) {
-            const hashName = window.location.hash.replace('#', '');
-            generateTemplate(hashName);
-            $(`li[data-name=${hashName}]`).addClass('active');
-        } else {
-            generateTemplate('home');
-        }
-    }
+                // setting template to be tab on refresh
+                if (window.location.hash.length > 0) {
+                    const hashName = window.location.hash.replace('#', '');
+                    generateTemplate(hashName);
+                    $(`li[data-name=${hashName}]`).addClass('active');
+                } else {
+                    generateTemplate('home');
+                }
+            }
 
-    return {
-        init: init
-    };
-};
+            return {
+                init: init
+            };
+        };
 
-const sonarApp = sonarModule();
-sonarApp.init();
-});
+        const sonarApp = sonarModule();
+        sonarApp.init();
+    });
 })();
