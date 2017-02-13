@@ -209,7 +209,7 @@
                     tempObj.genre2 = $(this).children('.genre2').val();
                     tempObj.label = $(this).children('.label-name').val();
                     tempObj.originDate = $(this).children('.origin-date').val();
-                    tempObj.active = $(this).children('.active').prop('checked') ? 1 : 0;
+                    tempObj.active = $(this).children('.active').prop('checked') ? true : false;
                     console.log(tempObj);
                     addBand(tempObj);
                     this.reset();
