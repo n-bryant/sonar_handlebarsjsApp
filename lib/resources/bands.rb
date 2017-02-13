@@ -19,9 +19,7 @@ end
 
 get '/band' do
   search = params.fetch('name', '')
-  p search
-  p params['name']
-  bands = Band.where(name: search).map { |band| band.get_band_info }
+  bands = Band.where("name LIKE ?", search).map { |band| band.get_band_info }
 
   halt [404, 'No bands found'.to_json] if bands.empty?
 
