@@ -1,7 +1,6 @@
-// loading screens
-// fill in spots for api urls
-// adjust constructors to receive api data
-// handle adds/edits, ratings, and deletes
+// genres: get/add/edit/delete
+// band: delete
+//
 
 (function() {
     "use strict";
@@ -387,9 +386,9 @@
                         "content-type": "application/json;charset=utf-8"
                     },
                     data: JSON.stringify({
-                        "biography": {},
-                        "genres": [],
-                        "image_path": dataObj.imageLoc,
+                        "biography": {
+                            "image_path": dataObj.imageLoc
+                        },
                         "label": dataObj.labelNm,
                         "name": dataObj.name
                     })
@@ -430,7 +429,6 @@
                         "name": dataObj.name
                     })
                 };
-                console.log(settings.data);
 
                 $.ajax(settings).then((response) => {
                     // let user know edit was successful
@@ -590,18 +588,6 @@
                     }).catch((error) => {
                         console.log(error);
                     });
-            }
-
-            function rateAdd(rating, bandID) {
-                //
-            }
-
-            function rateDelete(bandID) {
-                $.ajax({
-
-                }).then((response) => {
-
-                });
             }
 
             // updates window hash

@@ -126,4 +126,25 @@ describe 'labels' do
       end
     end
   end
+
+  describe "#delete '/label/:id'" do
+    context 'when a valid label id is entered' do
+      it 'deletes the label' do
+        last_label_id = Label.last.id
+        delete "/label/#{last_label_id}"
+
+        expect(last_response.status).to eq 200
+        expect(Label.find_by_id(last_label_id)).to eq nil
+      end
+    end
+
+    context 'when an invalid label id is entered' do
+      it 'returns an unable to delete error' do
+        delete "/label/horse-dagger"
+
+        expect(last_response.status).to eq 400
+        expect(JSON.parse(last_response.body)).to eq 'No label with that id, unable to delete.'
+      end
+    end
+  end
 end

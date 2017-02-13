@@ -13,6 +13,7 @@ class Band < ActiveRecord::Base
 
   def get_band_info
     {
+      active:     self.active,
       biography:  self.biography,
       albums:     self.albums,
       genres:     self.genres,

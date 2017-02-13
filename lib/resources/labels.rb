@@ -1,3 +1,5 @@
+require_relative '../models/label'
+
 get '/label' do
   labels = Label.all
   halt [404, 'No labels found'.to_json] if labels.empty?
@@ -40,7 +42,8 @@ end
 put '/label/:id' do |id|
   label = Label.find_by_id(id)
   halt [400, 'Label not found.'.to_json] if label.nil?
-
+  parsed_params = JSON.parse(params)
+  
   params.delete('splat')
   params.delete('captures')
 
@@ -48,4 +51,12 @@ put '/label/:id' do |id|
   halt [400, 'Fields cannot be blank.'.to_json] unless updated
 
   [200, label.to_json]
+end
+
+delete '/label/:id' do |id|
+  label = Label.find_by_id(id)
+  halt [400, 'No label with that id, unable to delete.'.to_json] if label.nil?
+
+  label.destroy
+  label.to_json
 end
