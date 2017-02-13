@@ -40,14 +40,15 @@ post '/label' do
 end
 
 put '/label/:id' do |id|
+  request.body.rewind
+  request_payload = JSON.parse request.body.read
   label = Label.find_by_id(id)
   halt [400, 'Label not found.'.to_json] if label.nil?
-  parsed_params = JSON.parse(params)
 
-  parsed_params.delete('splat')
-  parsed_params.delete('captures')
+  request_payload.delete('splat')
+  request_payload.delete('captures')
 
-  updated = label.update(parsed_params)
+  updated = label.update(request_payload)
   halt [400, 'Fields cannot be blank.'.to_json] unless updated
 
   [200, label.to_json]
