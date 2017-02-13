@@ -1,0 +1,454 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+img {
+  border: 0;
+  height: auto;
+  max-width: 100%;
+  width: 100%; }
+
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  color: #303438;
+  font: 16px/1.6 "Open Sans", sans-serif; }
+
+header h1 {
+  font: 7rem "Metal Mania", cursive;
+  text-shadow: 2px 2px #cfcfcf;
+  text-transform: uppercase; }
+header nav li {
+  font-size: 1.5rem; }
+  header nav li:hover {
+    color: #cfcfcf;
+    text-decoration: underline; }
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600; }
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: underline; }
+
+.search-form .search {
+  color: #303438;
+  font: 2rem "Open Sans", sans-serif; }
+
+.genres-container h2 {
+  text-decoration: underline; }
+.genres-container h3 {
+  text-decoration: none; }
+  .genres-container h3:hover {
+    cursor: pointer; }
+.genres-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .genres-container button:active {
+    color: #303438; }
+.genres-container input[type="submit"] {
+  color: #cfcfcf; }
+
+.band-list-container .add {
+  color: #6991AC;
+  text-decoration: underline; }
+  .band-list-container .add:hover {
+    cursor: pointer; }
+.band-list-container .add-band-form input {
+  font-size: 1.5rem; }
+  .band-list-container .add-band-form input[type="submit"] {
+    color: #cfcfcf; }
+    .band-list-container .add-band-form input[type="submit"]:active {
+      color: #303438; }
+.band-list-container .add-band-form .cancel {
+  color: #6991AC;
+  text-decoration: underline; }
+
+.artist .actions button {
+  color: #6991AC;
+  text-decoration: underline; }
+.artist .edit-artist-form input[type="submit"] {
+  color: #cfcfcf; }
+  .artist .edit-artist-form input[type="submit"]:active {
+    color: #303438; }
+
+.labels-container h3 {
+  font: 2.5rem "Metal Mania", cursive;
+  text-decoration: none; }
+.labels-container .details input[type="submit"] {
+  color: #cfcfcf; }
+.labels-container button {
+  color: #6991AC;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline; }
+  .labels-container button:active {
+    color: #303438; }
+.labels-container .add-label-form input {
+  font-size: 1.5rem; }
+  .labels-container .add-label-form input[type="submit"] {
+    color: #cfcfcf; }
+    .labels-container .add-label-form input[type="submit"]:active {
+      color: #303438; }
+
+.loading-container {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  left: 0;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2; }
+  .loading-container .load-icon {
+    animation: loading 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+    border: 7px dashed #D75C37;
+    border-radius: 100%;
+    height: 2rem;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 2rem; }
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg); }
+  50% {
+    transform: rotate(180deg); }
+  100% {
+    transform: rotate(360deg); } }
+body {
+  background: #303438; }
+
+.main-wrapper {
+  background: #cfcfcf;
+  margin: 0 auto;
+  width: 85%; }
+
+nav li.active {
+  color: #cfcfcf; }
+
+main {
+  background: #cfcfcf; }
+  main .content-container {
+    padding: 2rem; }
+
+.search-form {
+  margin: 0 auto;
+  width: 50%; }
+  .search-form .search {
+    border: 1px solid #303438;
+    width: 100%; }
+
+header {
+  background: #D75C37;
+  padding: 2rem 2rem 1rem 2rem; }
+  header .home-btn img:hover {
+    cursor: pointer; }
+
+.logo {
+  width: 25%; }
+
+nav ul {
+  justify-content: space-around;
+  margin-top: 1rem;
+  text-align: center; }
+  nav ul li:hover {
+    cursor: pointer; }
+
+.featured-article {
+  justify-content: center;
+  padding: 2rem;
+  width: 40%; }
+  .featured-article p {
+    margin-bottom: 1rem; }
+
+.featured-bands {
+  padding: 2rem;
+  width: 60%; }
+  .featured-bands .band-list {
+    flex-wrap: wrap; }
+    .featured-bands .band-list .band-item {
+      background: #303438;
+      margin: 1px;
+      width: 33%; }
+      .featured-bands .band-list .band-item img {
+        display: block;
+        width: 100%; }
+      .featured-bands .band-list .band-item:hover {
+        cursor: pointer; }
+
+.featured-band-bio {
+  margin: 1rem auto; }
+  .featured-band-bio h3 {
+    text-align: center; }
+
+.genres-container {
+  margin: 2rem auto auto 5rem; }
+  .genres-container .actions {
+    padding-left: 1rem;
+    width: 25%; }
+    .genres-container .actions button {
+      background: none;
+      border: none; }
+  .genres-container input[type="submit"] {
+    background: #303438;
+    border-radius: 0;
+    margin-left: .5rem; }
+    .genres-container input[type="submit"]:hover {
+      cursor: pointer; }
+
+.genres-list {
+  margin: 1rem auto auto 3rem;
+  text-align: left;
+  width: 30%; }
+  .genres-list .genre-bands {
+    margin-bottom: 1rem; }
+    .genres-list .genre-bands li {
+      align-items: center;
+      margin: 1rem 0 1rem 2rem; }
+      .genres-list .genre-bands li img {
+        width: 50px; }
+      .genres-list .genre-bands li span {
+        margin-left: .5rem; }
+  .genres-list .edit-genre-form {
+    margin-top: .5rem;
+    padding-left: 1rem; }
+
+.add-genre-form .cancel {
+  background: none;
+  border: none;
+  margin-left: .5rem; }
+  .add-genre-form .cancel:hover {
+    cursor: pointer; }
+
+.genre-item button:hover {
+  cursor: pointer; }
+
+.band-list-container .add-band-form {
+  align-items: center;
+  border: 1px solid #303438;
+  clear: both;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 50%; }
+  .band-list-container .add-band-form input {
+    width: 85%; }
+    .band-list-container .add-band-form input[type="submit"] {
+      background: #303438; }
+      .band-list-container .add-band-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .band-list-container .add-band-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: 1px solid #303438; }
+  .band-list-container .add-band-form .cancel {
+    background: none;
+    border: none; }
+    .band-list-container .add-band-form .cancel:hover {
+      cursor: pointer; }
+
+.band-container-list {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center; }
+  .band-container-list .band-container {
+    background: #cfcfcf;
+    width: 100%;
+    flex-direction: column; }
+    .band-container-list .band-container:nth-of-type(even) {
+      background: #6991AC; }
+    .band-container-list .band-container:hover {
+      box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+      z-index: 2; }
+    .band-container-list .band-container img {
+      width: 20%;
+      height: 20%; }
+    .band-container-list .band-container .display-name-container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%; }
+      .band-container-list .band-container .display-name-container .band-name {
+        font-size: 4rem; }
+        .band-container-list .band-container .display-name-container .band-name:hover {
+          cursor: pointer; }
+      .band-container-list .band-container .display-name-container .label-home-container {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%; }
+        .band-container-list .band-container .display-name-container .label-home-container .basic-info {
+          text-decoration: none; }
+    .band-container-list .band-container .dropdown {
+      margin: 0; }
+      .band-container-list .band-container .dropdown .bio-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0; }
+        .band-container-list .band-container .dropdown .bio-container:nth-of-type(odd) {
+          background: #6991AC; }
+        .band-container-list .band-container .dropdown .bio-container .band-members {
+          padding-top: 2rem; }
+        .band-container-list .band-container .dropdown .bio-container .bio {
+          padding: 2rem; }
+        .band-container-list .band-container .dropdown .bio-container .label-name {
+          padding-bottom: 2rem;
+          text-decoration: none; }
+      .band-container-list .band-container .dropdown .albums-container {
+        margin: 0; }
+        .band-container-list .band-container .dropdown .albums-container .album-image-container {
+          flex-direction: row;
+          justify-content: center;
+          padding: 1rem;
+          width: 100%; }
+          .band-container-list .band-container .dropdown .albums-container .album-image-container img {
+            max-width: 200px;
+            width: 20%; }
+            .band-container-list .band-container .dropdown .albums-container .album-image-container img:hover {
+              box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
+              z-index: 3;
+              transform: scale(1.05); }
+
+.artist .actions button {
+  background: none;
+  border: none; }
+  .artist .actions button:hover {
+    cursor: pointer; }
+.artist .edit-artist-form {
+  margin: 1rem 1rem 0 0; }
+  .artist .edit-artist-form input {
+    display: block;
+    margin-bottom: .5rem; }
+    .artist .edit-artist-form input[type="submit"] {
+      background: #303438;
+      border-radius: 0; }
+      .artist .edit-artist-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .artist .edit-artist-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: #303438; }
+
+.labels-container {
+  margin: 2rem auto 0 auto;
+  text-align: center;
+  width: 85%; }
+
+.labels {
+  clear: both; }
+
+.label-item img {
+  height: 20%;
+  width: 20%; }
+.label-item .details {
+  flex-direction: column;
+  justify-content: center;
+  width: 80%; }
+  .label-item .details input[type="submit"] {
+    background: #303438;
+    border-radius: 0; }
+    .label-item .details input[type="submit"]:hover {
+      cursor: pointer; }
+.label-item .actions {
+  padding-top: 1rem;
+  text-align: center; }
+  .label-item .actions button {
+    background: none;
+    border: none;
+    margin-bottom: 1rem;
+    width: 15%; }
+    .label-item .actions button:hover {
+      cursor: pointer; }
+
+.add {
+  background: none;
+  border: none;
+  float: left;
+  margin-bottom: 1rem; }
+  .add:hover {
+    cursor: pointer; }
+
+.add-label-form {
+  align-items: center;
+  border: 1px solid #303438;
+  clear: both;
+  height: 300px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 50%; }
+  .add-label-form input {
+    width: 85%; }
+    .add-label-form input[type="submit"] {
+      background: #303438; }
+      .add-label-form input[type="submit"]:hover {
+        cursor: pointer; }
+      .add-label-form input[type="submit"]:active {
+        background: #cfcfcf;
+        border: 1px solid #303438; }
+  .add-label-form .cancel {
+    background: none;
+    border: none; }
+    .add-label-form .cancel:hover {
+      cursor: pointer; }
+
+.is-flex {
+  display: flex; }
+
+.is-centered {
+  text-align: center; }
+
+.is-hidden {
+  display: none; }
+
+/*# sourceMappingURL=main.css.map */
