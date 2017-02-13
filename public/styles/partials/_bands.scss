@@ -1,10 +1,8 @@
-
-
 .band-list-container {
   .add-band-form {
     align-items: center;
     border: 1px solid $slate;
-    clear: both;
+    clear: both; 
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
@@ -49,7 +47,8 @@
     flex-direction: column;
 
     &:nth-of-type(even) {
-      background: $sky;
+      background: $slate;
+      color: $lightGrey;
     }
     &:hover {
       box-shadow: -10px 10px 5px $loading;
@@ -92,7 +91,8 @@
         align-items: center;
         margin: 0;
         &:nth-of-type(odd) {
-          background: $sky;
+          background: $slate;
+          color: $lightGrey;
         }
 
         //  box-shadow: 10px 10px 5px #888888;

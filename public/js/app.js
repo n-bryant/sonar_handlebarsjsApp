@@ -257,10 +257,17 @@
                     event.preventDefault();
                     let tempObj = {};
 
+<<<<<<< HEAD
                     tempObj.headquarters = $(this).children('.headquarters').val();
                     tempObj.homepage = $(this).children('.homepage').val();
                     tempobj.logo_path = $(this).children('.image-loc').val();
                     tempobj.name = $(this).children('.image-loc').val();
+=======
+                tempObj.headquarters = $(this).children('.location').val();
+                tempObj.homepage = $(this).children('.homepage').val();
+                tempObj.logo_path = $(this).children('.image-loc').val();
+                tempObj.name = $(this).children('.label-name').val();
+>>>>>>> master
 
                     addLabel(tempObj);
                     this.reset();

@@ -306,7 +306,8 @@ nav ul {
     width: 100%;
     flex-direction: column; }
     .band-container-list .band-container:nth-of-type(even) {
-      background: #6991AC; }
+      background: #303438;
+      color: #cfcfcf; }
     .band-container-list .band-container:hover {
       box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
       z-index: 2; }
@@ -336,7 +337,8 @@ nav ul {
         align-items: center;
         margin: 0; }
         .band-container-list .band-container .dropdown .bio-container:nth-of-type(odd) {
-          background: #6991AC; }
+          background: #303438;
+          color: #cfcfcf; }
         .band-container-list .band-container .dropdown .bio-container .band-members {
           padding-top: 2rem; }
         .band-container-list .band-container .dropdown .bio-container .bio {
