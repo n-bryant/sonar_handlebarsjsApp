@@ -294,45 +294,44 @@
 
             // add band function
             function addBand(input) {
-
-                const addArtist = {
-                    method: 'POST',
-                    url: "https://sonar-music-database.herokuapp.com/band/add",
-                    headers: {
-                        "content-type": "application/json;charset=utf-8"
-                    },
-                    data: JSON.stringify({
-                        "active": input.active,
-                        "biography": {
-                            "background": input.biography,
-                            "image_path": input.imageLoc,
-                            "members": input.members,
-                            "origin_date": input.originDate
-                        },
-                        "genres": [input.genre1, input.genre2],
-                        "label": input.label,
-                        "name": input.name
-                    })
-                };
-                $.ajax(addArtist).then((response) => {
-                    // let user know edit was successful
-                    $('<p>').text('Arist added successfully').css({
-                        position: 'absolute',
-                        background: 'rgba(0,200,0,.75)',
-                        width: '100%',
-                        padding: '1rem',
-                        color: '#fff',
-                        top: 0,
-                        left: 0,
-                        textAlign: 'center'
-                    }).appendTo('body').fadeOut(3000, function() {
-                        this.remove();
-                    });
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            }
+               const addArtist = {
+                   method: 'POST',
+                   url: "https://sonar-music-database.herokuapp.com/band",
+                   headers: {
+                       "content-type": "application/json;charset=utf-8"
+                   },
+                   data: JSON.stringify({
+                       "active": input.active,
+                       "biography": {
+                           "background": input.biography,
+                           "image_path": input.imageLoc,
+                           "members": input.members,
+                           "origin_date": input.originDate
+                       },
+                       "genres": [input.genre1, input.genre2],
+                       "label": input.label,
+                       "name": input.name
+                   })
+               };
+               $.ajax(addArtist).then((response) => {
+                   // let user know edit was successful
+                   $('<p>').text('Arist added successfully').css({
+                       position: 'absolute',
+                       background: 'rgba(0,200,0,.75)',
+                       width: '100%',
+                       padding: '1rem',
+                       color: '#fff',
+                       top: 0,
+                       left: 0,
+                       textAlign: 'center'
+                   }).appendTo('body').fadeOut(3000, function() {
+                       this.remove();
+                   });
+                   console.log(response);
+               }).catch((error) => {
+                   console.log(error);
+               });
+           }
 
             // add genre function
             function addGenre(genreObj) {
