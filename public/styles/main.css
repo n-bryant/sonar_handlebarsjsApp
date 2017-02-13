@@ -276,7 +276,6 @@ nav ul {
   align-items: center;
   border: 1px solid #303438;
   clear: both;
-  height: 300px;
   flex-direction: column;
   justify-content: space-between;
   margin: 0 auto;
@@ -307,7 +306,8 @@ nav ul {
     width: 100%;
     flex-direction: column; }
     .band-container-list .band-container:nth-of-type(even) {
-      background: #303438; }
+      background: #303438;
+      color: #cfcfcf; }
     .band-container-list .band-container:hover {
       box-shadow: -10px 10px 5px rgba(0, 0, 0, 0.5);
       z-index: 2; }
@@ -337,7 +337,8 @@ nav ul {
         align-items: center;
         margin: 0; }
         .band-container-list .band-container .dropdown .bio-container:nth-of-type(odd) {
-          background: #303438; }
+          background: #303438;
+          color: #cfcfcf; }
         .band-container-list .band-container .dropdown .bio-container .band-members {
           padding-top: 2rem; }
         .band-container-list .band-container .dropdown .bio-container .bio {
