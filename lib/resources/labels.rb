@@ -1,7 +1,9 @@
 require_relative '../models/label'
 
 get '/label' do
-  labels = Label.all
+  search = params.fetch('name', '')
+  labels = Label.where("lower(name) LIKE (?)", "%#{search.downcase}%")
+
   halt [404, 'No labels found'.to_json] if labels.empty?
 
   labels.to_json
@@ -45,6 +47,7 @@ end
 put '/label/:id' do |id|
   request.body.rewind
   request_payload = JSON.parse request.body.read
+
   label = Label.find_by_id(id)
   halt [400, 'Label not found.'.to_json] if label.nil?
 
