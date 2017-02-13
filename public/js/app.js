@@ -88,10 +88,10 @@
 
             class Label {
                 constructor(labelDetails) {
-                    this.id = 1;
-                    this.image = 'https://upload.wikimedia.org/wikipedia/commons/4/44/ScaleTheSummit121509.jpg';
-                    this.location = 'New York City, NY';
-                    this.name = 'Rhapsody Records';
+                    this.id = labelDetails.id;
+                    this.image = labelDetails.logo_path;
+                    this.hq = labelDetails.headquarters;
+                    this.name = labelDetails.name;
                     this.build();
                 }
 
@@ -205,6 +205,7 @@
                 });
                 // submitting edit artist form
                 $contentContainer.on('submit', '.edit-artist-form', function() {
+                    event.preventDefault();
                     // store user input
                     let artistID = $(this).parents('.artist').attr('data-id');
                     let tempObj = {};
@@ -214,6 +215,7 @@
 
                     // pass input values to editArtist
                     editArtist(tempObj, artistID);
+                    this.reset();
                 });
                 // deleting artist item
                 $contentContainer.on('click', '.artist .actions .delete', function() {
@@ -237,15 +239,28 @@
                 // submitting add label form
                 $contentContainer.on('submit', '.add-label-form', function() {
                     event.preventDefault();
-                    console.log(event.target[0].value);
-                    console.log(event.target[1].value);
-                    console.log(event.target[2].value);
+
                     this.reset();
                 });
                 // editing label item
                 $contentContainer.on('click', '.label-item .actions .edit', function() {
                     $(this).parents('.actions').siblings('.edit-label-form').slideToggle();
                 });
+                // // submitting edit label form
+                // $contentContainer.on('submit', '.edit-label-form', function() {
+                //     event.preventDefault();
+                //     // store user input
+                //     let labelID = $(this).parents('.details').attr('data-id');
+                //     let tempObj = {};
+                //     tempObj.hq = $(this).children('.hq-loc').val();
+                //     tempObj.homepage = $(this).children('.homepage').val();
+                //     tempObj.imageLoc = $(this).children('.image-loc').val();
+                //     tempObj.name = $(this).children('.label-name').val();
+                //
+                //     // pass input values to editLabel
+                //     editLabel(tempObj, labelID);
+                //     this.reset();
+                // });
                 // deleting label item
                 $contentContainer.on('click', '.label-item .actions .delete', function() {
                     $(this).parents('li').remove();
@@ -289,6 +304,7 @@
                 });
             }
 
+            // edit artist data
             function editArtist(dataObj, bandID) {
                 const settings = {
                     method: 'PUT',
@@ -324,6 +340,43 @@
                     console.log(error);
                 });
             }
+
+            // // edit label data
+            // function editLabel(dataObj, labelID) {
+            //     const settings = {
+            //         method: 'PUT',
+            //         url: `https://sonar-music-database.herokuapp.com/label/${labelID}`,
+            //         headers: {
+            //             "content-type": "application/json;charset=utf-8"
+            //         },
+            //         data: JSON.stringify({
+            //             "headquarters": dataObj.hq,
+            //             "homepage": dataObj.homepage,
+            //             "logo_path": dataObj.imageLoc,
+            //             "name": dataObj.name
+            //         })
+            //     };
+            //     console.log(settings.data);
+            //
+            //     $.ajax(settings).then((response) => {
+            //         // let user know edit was successful
+            //         $('<p>').text('Arist edited successfully').css({
+            //             position: 'absolute',
+            //             background: 'rgba(0,200,0,.75)',
+            //             width: '100%',
+            //             padding: '1rem',
+            //             color: '#fff',
+            //             top: 0,
+            //             left: 0,
+            //             textAlign: 'center'
+            //         }).appendTo('body').fadeOut(3000, function() {
+            //             this.remove();
+            //         });
+            //         console.log(response);
+            //     }).catch((error) => {
+            //         console.log(error);
+            //     });
+            // }
 
             // gnerate a page template
             function generateTemplate(page) {
@@ -441,12 +494,13 @@
 
             // gets all labels data
             function getLabelResults() {
-                $.get(`interpolated api url`)
+                $.get('https://sonar-music-database.herokuapp.com/label')
                     .then((response) => {
-                        let count = response.results.length;
-                        for (let index = 0; index < count; index++) {
-                            new Label(response.results);
-                        }
+                      new Label(JSON.parse(response)[0]);
+                        // let count = response.results.length;
+                        // for (let index = 0; index < count; index++) {
+                        //     new Label(response.results);
+                        // }
                     }).catch((error) => {
                         console.log(error);
                     });

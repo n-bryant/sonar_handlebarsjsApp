@@ -167,7 +167,7 @@
                 <div class="dropdown is-hidden">
                     <ul>
                         <li class="bio-container is-flex slide">
-                            <p class="band-members">{{members}}</p>
+                            <p class="band-members">Members: {{members}}</p>
                             <p class="bio">{{background}}</p>
                             <h3 class="label-name">{{label}}</h3>
                         </li>
@@ -209,7 +209,7 @@
             <li>
                 <div class="label-item is-flex">
                     <img src="{{image}}" alt="{{name}}">
-                    <div class="details is-flex">
+                    <div class="details is-flex" data-id="{{id}}">
                         <h3>{{name}}</h3>
                         <p>{{location}}</p>
                         <div class="actions">
@@ -217,9 +217,10 @@
                             <button class="delete">delete</button>
                         </div>
                         <form class="edit-label-form is-hidden">
-                            <input type="text" placeholder="image location" name="img-location">
-                            <input type="text" placeholder="name" name="label-name">
-                            <input type="text" placeholder="hq location" name="hq-location">
+                            <input class="image-loc" type="text" placeholder="image location" name="img-location">
+                            <input class="homepage" type="text" placeholder="homepage url" name="homepage">
+                            <input class="label-name" type="text" placeholder="name" name="label-name">
+                            <input class="hq-loc" type="text" placeholder="hq location" name="hq-location">
                             <input type="submit" value="Edit Label">
                         </form>
                     </div>
