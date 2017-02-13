@@ -4,10 +4,10 @@
 // handle adds/edits, ratings, and deletes
 
 (function() {
-    "use strict";
+"use strict";
 
-    // wait for page to load to execute
-    $(document).ready(() => {
+// wait for page to load to execute
+$(document).ready(() => {
         const sonarModule = function() {
             const $contentContainer = $('.content-container');
 
@@ -238,32 +238,44 @@
                 });
                 // submitting add label form
                 $contentContainer.on('submit', '.add-label-form', function() {
-                    event.preventDefault();
+                event.preventDefault();
+                let tempObj = {};
 
-                    this.reset();
+                tempObj.headquarters = $(this).children('.headquarters').val();
+                tempObj.homepage = $(this).children('.homepage').val();
+                tempobj.logo_path = $(this).children('.image-loc').val();
+                tempobj.name = $(this).children('.image-loc').val();
+
+                addLabel(tempObj);
+                this.reset();
                 });
                 // editing label item
                 $contentContainer.on('click', '.label-item .actions .edit', function() {
                     $(this).parents('.actions').siblings('.edit-label-form').slideToggle();
                 });
-                // // submitting edit label form
-                // $contentContainer.on('submit', '.edit-label-form', function() {
-                //     event.preventDefault();
-                //     // store user input
-                //     let labelID = $(this).parents('.details').attr('data-id');
-                //     let tempObj = {};
-                //     tempObj.hq = $(this).children('.hq-loc').val();
-                //     tempObj.homepage = $(this).children('.homepage').val();
-                //     tempObj.imageLoc = $(this).children('.image-loc').val();
-                //     tempObj.name = $(this).children('.label-name').val();
-                //
-                //     // pass input values to editLabel
-                //     editLabel(tempObj, labelID);
-                //     this.reset();
-                // });
+                // submitting edit label form
+                $contentContainer.on('submit', '.edit-label-form', function() {
+                    event.preventDefault();
+                    // store user input
+                    let labelID = $(this).parents('.details').attr('data-id');
+                    let tempObj = {};
+                    tempObj.hq = $(this).children('.hq-loc').val();
+                    tempObj.homepage = $(this).children('.homepage').val();
+                    tempObj.imageLoc = $(this).children('.image-loc').val();
+                    tempObj.name = $(this).children('.label-name').val();
+
+                    // pass input values to editLabel
+                    editLabel(tempObj, labelID);
+                    this.reset();
+                });
                 // deleting label item
                 $contentContainer.on('click', '.label-item .actions .delete', function() {
                     $(this).parents('li').remove();
+                });
+                // deleting label item
+                $contentContainer.on('click', '.label-item .actions .delete', function() {
+                    $(this).parents('li').remove();
+                    deleteLabel($(this).parents('.details').attr('data-id'));
                 });
             }
 
@@ -287,6 +299,71 @@
                 $.ajax(addArtist).then((response) => {
                     // let user know edit was successful
                     $('<p>').text('Arist added successfully').css({
+                        position: 'absolute',
+                        background: 'rgba(0,200,0,.75)',
+                        width: '100%',
+                        padding: '1rem',
+                        color: '#fff',
+                        top: 0,
+                        left: 0,
+                        textAlign: 'center'
+                    }).appendTo('body').fadeOut(3000, function() {
+                        this.remove();
+                    });
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
+
+            // add label function
+            function addLabel(input) {
+
+                const addLabel = {
+                    method: 'POST',
+                    url: "https://sonar-music-database.herokuapp.com/label/add",
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8'
+                    },
+                    data: JSON.stringify({
+                        "headquarters": input.headquarters,
+                        "homepage": input.homepage,
+                        "logo_path": input.logo_path,
+                        "name": input.name
+                    })
+                };
+                $.ajax(addLabel).then((response) => {
+                    // let user know edit was successful
+                    $('<p>').text('Label added successfully').css({
+                        position: 'absolute',
+                        background: 'rgba(0,200,0,.75)',
+                        width: '100%',
+                        padding: '1rem',
+                        color: '#fff',
+                        top: 0,
+                        left: 0,
+                        textAlign: 'center'
+                    }).appendTo('body').fadeOut(3000, function() {
+                        this.remove();
+                    });
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
+
+            //delete label function
+            function deleteLabel(label) {
+                const deleteLabel = {
+                    method: 'delete',
+                    url: `https://sonar-music-database.herokuapp.com/label/${label.id}`,
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8'
+                    }
+                };
+                $.ajax(deleteLabel).then((response) => {
+                    // let user know edit was successful
+                    $('<p>').text('Label deleted successfully').css({
                         position: 'absolute',
                         background: 'rgba(0,200,0,.75)',
                         width: '100%',
@@ -341,42 +418,42 @@
                 });
             }
 
-            // // edit label data
-            // function editLabel(dataObj, labelID) {
-            //     const settings = {
-            //         method: 'PUT',
-            //         url: `https://sonar-music-database.herokuapp.com/label/${labelID}`,
-            //         headers: {
-            //             "content-type": "application/json;charset=utf-8"
-            //         },
-            //         data: JSON.stringify({
-            //             "headquarters": dataObj.hq,
-            //             "homepage": dataObj.homepage,
-            //             "logo_path": dataObj.imageLoc,
-            //             "name": dataObj.name
-            //         })
-            //     };
-            //     console.log(settings.data);
-            //
-            //     $.ajax(settings).then((response) => {
-            //         // let user know edit was successful
-            //         $('<p>').text('Arist edited successfully').css({
-            //             position: 'absolute',
-            //             background: 'rgba(0,200,0,.75)',
-            //             width: '100%',
-            //             padding: '1rem',
-            //             color: '#fff',
-            //             top: 0,
-            //             left: 0,
-            //             textAlign: 'center'
-            //         }).appendTo('body').fadeOut(3000, function() {
-            //             this.remove();
-            //         });
-            //         console.log(response);
-            //     }).catch((error) => {
-            //         console.log(error);
-            //     });
-            // }
+            // edit label data
+            function editLabel(dataObj, labelID) {
+                const settings = {
+                    method: 'PUT',
+                    url: `https://sonar-music-database.herokuapp.com/label/${labelID}`,
+                    headers: {
+                        "content-type": "application/json;charset=utf-8"
+                    },
+                    data: JSON.stringify({
+                        "headquarters": dataObj.hq,
+                        "homepage": dataObj.homepage,
+                        "logo_path": dataObj.imageLoc,
+                        "name": dataObj.name
+                    })
+                };
+                console.log(settings.data);
+
+                $.ajax(settings).then((response) => {
+                    // let user know edit was successful
+                    $('<p>').text('Arist edited successfully').css({
+                        position: 'absolute',
+                        background: 'rgba(0,200,0,.75)',
+                        width: '100%',
+                        padding: '1rem',
+                        color: '#fff',
+                        top: 0,
+                        left: 0,
+                        textAlign: 'center'
+                    }).appendTo('body').fadeOut(3000, function() {
+                        this.remove();
+                    });
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                });
+            }
 
             // gnerate a page template
             function generateTemplate(page) {
@@ -539,22 +616,22 @@
             function init() {
                 bindEvents();
 
-                // setting template to be tab on refresh
-                if (window.location.hash.length > 0) {
-                    const hashName = window.location.hash.replace('#', '');
-                    generateTemplate(hashName);
-                    $(`li[data-name=${hashName}]`).addClass('active');
-                } else {
-                    generateTemplate('home');
-                }
-            }
+        // setting template to be tab on refresh
+        if (window.location.hash.length > 0) {
+            const hashName = window.location.hash.replace('#', '');
+            generateTemplate(hashName);
+            $(`li[data-name=${hashName}]`).addClass('active');
+        } else {
+            generateTemplate('home');
+        }
+    }
 
-            return {
-                init: init
-            };
-        };
+    return {
+        init: init
+    };
+};
 
-        const sonarApp = sonarModule();
-        sonarApp.init();
-    });
+const sonarApp = sonarModule();
+sonarApp.init();
+});
 })();
