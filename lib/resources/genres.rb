@@ -38,7 +38,7 @@ put '/genre/:id' do |id|
   genre = Genre.find_by_id(id)
   halt [400, 'Genre not found.'.to_json] if genre.nil?
 
-  updated = genre.update(request_payload['name'])
+  updated = genre.update(name: request_payload['name'])
   halt [400, 'Name cannot be blank.'.to_json] unless updated
 
   [200, genre.to_json]
