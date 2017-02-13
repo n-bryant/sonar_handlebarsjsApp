@@ -373,7 +373,7 @@ $(document).ready(() => {
 
                 const addLabel = {
                     method: 'POST',
-                    url: "https://sonar-music-database.herokuapp.com/label/add",
+                    url: "https://sonar-music-database.herokuapp.com/label",
                     headers: {
                         'content-type': 'application/json;charset=utf-8'
                     },
@@ -406,7 +406,7 @@ $(document).ready(() => {
 
             // delete artist function
             function deleteArtist(artistID) {
-              const deleteLabel = {
+              const deleteArtist = {
                   method: 'DELETE',
                   url: `https://sonar-music-database.herokuapp.com/band/${artistID}`,
                   headers: {
