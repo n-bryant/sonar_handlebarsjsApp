@@ -631,7 +631,7 @@ $(document).ready(() => {
                         let featuredBands = JSON.parse(response).splice(0, 6);
 
                         // creates new Band instance for each featured band
-                        for (let index = 0; index < topRelated.length; index++) {
+                        for (let index = 0; index < featuredBands.length; index++) {
                           new Band(featuredBands[index], true);
                         }
                     }).catch((error) => {
