@@ -26,11 +26,14 @@ get '/label/:id/bands' do |id|
 end
 
 post '/label' do
+  request.body.rewind
+  request_payload = JSON.parse request.body.read
+
   label = Label.new(
-    headquarters: params['headquarters'],
-    homepage: params['homepage'],
-    logo_path: params['logo_path'],
-    name: params['name']
+    headquarters: request_payload['headquarters'],
+    homepage: request_payload['homepage'],
+    logo_path: request_payload['logo_path'],
+    name: request_payload['name']
   )
 
   halt [400, 'Fields cannot be blank.'.to_json] unless label.valid?

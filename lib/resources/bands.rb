@@ -74,36 +74,39 @@ get '/band/:id/songs' do |id|
 end
 
 post '/band' do
-  label = Label.find_by(name: params['label'])
+  request.body.rewind
+  request_payload = JSON.parse request.body.read
+
+  label = Label.find_by(name: request_payload['label'])
   halt [400, 'Invalid label.'.to_json] if label.nil?
 
   band = Band.new(
-    active: params['active'],
+    active: request_payload['active'],
     label: label,
-    name: params['name']
+    name: request_payload['name']
   )
 
   halt [400, 'Name and active status are required.'.to_json] unless band.valid?
-  halt [400, 'Biography is empty.'.to_json] if params['biography'].nil?
+  halt [400, 'Biography is empty.'.to_json] if request_payload['biography'].nil?
 
-  unless params['biography'].class == Hash
+  unless request_payload['biography'].class == Hash
     halt [400, 'Biography should be an object.'.to_json]
   end
 
-  biography = Biography.new(params['biography'])
+  biography = Biography.new(request_payload['biography'])
   halt [400, 'Incomplete biography.'.to_json] unless biography.valid?
 
   band.save
   biography.band = band
   biography.save
 
-  halt [400, 'No genres entered.'.to_json] if params['genres'].nil? or params['genres'].empty?
+  halt [400, 'No genres entered.'.to_json] if request_payload['genres'].nil? or request_payload['genres'].empty?
 
-  unless Validator.genres_are_valid?(params['genres'])
+  unless Validator.genres_are_valid?(request_payload['genres'])
     halt [400, 'Genres should be an array of strings.'.to_json]
   end
 
-  params['genres'].each do |genre|
+  request_payload['genres'].each do |genre|
     current_genre = Genre.find_by(name: genre)
     halt [400, 'Invalid genre.'.to_json] if current_genre.nil?
     BandGenre.create(band: band, genre: current_genre)
@@ -113,26 +116,29 @@ post '/band' do
 end
 
 put '/band/:id' do |id|
+  request.body.rewind
+  request_payload = JSON.parse request.body.read
+
   band = Band.find_by_id(id)
   halt [404, 'Band not found.'.to_json] if band.nil?
 
-  raw_params = params
-  clean_params = Validator.delete_empty_params(raw_params)
-  label = Label.find_by(name: params.fetch('label', band.label.name))
+  raw_request_payload = request_payload
+  clean_request_payload = Validator.delete_empty_params(raw_request_payload)
+  label = Label.find_by(name: request_payload.fetch('label', band.label.name))
 
   band.update(
-    active: params.fetch('active', band.active),
+    active: request_payload.fetch('active', band.active),
     label: label,
-    name: params.fetch('name', band.name)
+    name: request_payload.fetch('name', band.name)
   )
 
   biography = Biography.find_by(band: band)
   biography.update(
-    background: clean_params.fetch('biography').fetch('background', biography.background),
-    image_path: clean_params.fetch('biography').fetch('image_path', biography.image_path),
-    members: clean_params.fetch('biography').fetch('members', biography.members),
-    origin_date: clean_params.fetch('biography').fetch('origin_date', biography.origin_date)
-  ) if clean_params['biography']
+    background: clean_request_payload.fetch('biography').fetch('background', biography.background),
+    image_path: clean_request_payload.fetch('biography').fetch('image_path', biography.image_path),
+    members: clean_request_payload.fetch('biography').fetch('members', biography.members),
+    origin_date: clean_request_payload.fetch('biography').fetch('origin_date', biography.origin_date)
+  ) if clean_request_payload['biography']
 
   # halt [400, 'No genres entered.'.to_json] if params['genres'].nil? or params['genres'].empty?
   #
@@ -166,7 +172,7 @@ post '/band/:id/rating' do |id|
   band = Band.find_by_id(id)
   halt [400, 'No band with that id, unable to rate.'.to_json] if band.nil?
 
-  rating = params['rating']
+  rating = request_payload['rating']
   halt [400, 'Rating should be a number.'.to_json] unless Validator.is_numeric?(rating)
 
   band.update(rating_avg: rating)
