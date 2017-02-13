@@ -261,8 +261,8 @@ $(document).ready(() => {
 
                 tempObj.headquarters = $(this).children('.headquarters').val();
                 tempObj.homepage = $(this).children('.homepage').val();
-                tempobj.logo_path = $(this).children('.image-loc').val();
-                tempobj.name = $(this).children('.image-loc').val();
+                tempObj.logo_path = $(this).children('.image-loc').val();
+                tempObj.name = $(this).children('.image-loc').val();
 
                 addLabel(tempObj);
                 this.reset();
@@ -340,7 +340,7 @@ $(document).ready(() => {
             function addGenre(genreObj) {
               const addGenre = {
                   method: 'POST',
-                  url: "https://sonar-music-database.herokuapp.com/genre/add",
+                  url: "https://sonar-music-database.herokuapp.com/genre",
                   headers: {
                       'content-type': 'application/json;charset=utf-8'
                   },
@@ -408,7 +408,7 @@ $(document).ready(() => {
             function deleteArtist(artistID) {
               const deleteLabel = {
                   method: 'DELETE',
-                  url: `https://sonar-music-database.herokuapp.com/band/${bandID}`,
+                  url: `https://sonar-music-database.herokuapp.com/band/${artistID}`,
                   headers: {
                       'content-type': 'application/json;charset=utf-8'
                   }
@@ -437,7 +437,7 @@ $(document).ready(() => {
             function deleteGenre(genreID) {
               const deleteGenre = {
                   method: 'DELETE',
-                  url: `https://sonar-music-database.herokuapp.com/label/${genreID}`,
+                  url: `https://sonar-music-database.herokuapp.com/genre/${genreID}`,
                   headers: {
                       'content-type': 'application/json;charset=utf-8'
                   }
@@ -540,6 +540,7 @@ $(document).ready(() => {
                       "name": dataObj.name
                   })
               };
+              console.log(settings.data);
 
               $.ajax(settings).then((response) => {
                   // let user know edit was successful
