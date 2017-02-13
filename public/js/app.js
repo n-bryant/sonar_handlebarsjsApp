@@ -201,17 +201,22 @@ $(document).ready(() => {
                 });
                 //submit add Band form
                 $contentContainer.on('submit', '.add-band-form', function() {
-                    event.preventDefault();
-                    let tempObj = {};
-                    tempObj.imageLoc = $(this).children('.image-loc').val();
-                    tempObj.name = $(this).children('.band-name').val();
-                    tempObj.hometown = $(this).children('.hometown').val();
-                    tempObj.label = $(this).children('.label-name').val();
-                    console.log(tempObj);
-
-                    addBand(tempObj);
-                    this.reset();
-                });
+                   event.preventDefault();
+                   let tempObj = {};
+                   tempObj.imageLoc = $(this).children('.image-loc').val();
+                   tempObj.name = $(this).children('.band-name').val();
+                   tempObj.hometown = $(this).children('.hometown').val();
+                   tempObj.biography = $(this).children('.biography').val();
+                   tempObj.members = $(this).children('.members').val();
+                   tempObj.genre1 = $(this).children('.genre1').val();
+                   tempObj.genre2 = $(this).children('.genre2').val();
+                   tempObj.label = $(this).children('.label-name').val();
+                   tempObj.originDate = $(this).children('.origin-date').val();
+                   tempObj.active = $(this).children('.active').prop('checked') ? 1 : 0;
+                   console.log(tempObj);
+                   addBand(tempObj);
+                   this.reset();
+               });
                 // editing arist item
                 $contentContainer.on('click', '.artist .actions .edit', function() {
                     $(this).parents('.actions').siblings('.edit-artist-form').slideToggle();
@@ -292,39 +297,44 @@ $(document).ready(() => {
             // add band function
             function addBand(input) {
 
-                const addArtist = {
-                    method: 'POST',
-                    url: "https://sonar-music-database.herokuapp.com/band/add",
-                    headers: {
-                        "content-type": "application/json;charset=utf-8"
-                    },
-                    data: JSON.stringify({
-                        "biography": {},
-                        "genres": [],
-                        "image_path": input.imageLoc,
-                        "label": input.label,
-                        "name": input.name
-                    })
-                };
-                $.ajax(addArtist).then((response) => {
-                    // let user know edit was successful
-                    $('<p>').text('Arist added successfully').css({
-                        position: 'absolute',
-                        background: 'rgba(0,200,0,.75)',
-                        width: '100%',
-                        padding: '1rem',
-                        color: '#fff',
-                        top: 0,
-                        left: 0,
-                        textAlign: 'center'
-                    }).appendTo('body').fadeOut(3000, function() {
-                        this.remove();
-                    });
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            }
+               const addArtist = {
+                   method: 'POST',
+                   url: "https://sonar-music-database.herokuapp.com/band",
+                   headers: {
+                       "content-type": "application/json;charset=utf-8"
+                   },
+                   data: JSON.stringify({
+                       "active": input.active,
+                       "biography": {
+                           "background": input.biography,
+                           "image_path": input.imageLoc,
+                           "members": input.members,
+                           "origin_date": input.originDate
+                       },
+                       "genres": [input.genre1, input.genre2],
+                       "label": input.label,
+                       "name": input.name
+                   })
+               };
+               $.ajax(addArtist).then((response) => {
+                   // let user know edit was successful
+                   $('<p>').text('Arist added successfully').css({
+                       position: 'absolute',
+                       background: 'rgba(0,200,0,.75)',
+                       width: '100%',
+                       padding: '1rem',
+                       color: '#fff',
+                       top: 0,
+                       left: 0,
+                       textAlign: 'center'
+                   }).appendTo('body').fadeOut(3000, function() {
+                       this.remove();
+                   });
+                   console.log(response);
+               }).catch((error) => {
+                   console.log(error);
+               });
+           }
 
             // add genre function
             function addGenre(genreObj) {
