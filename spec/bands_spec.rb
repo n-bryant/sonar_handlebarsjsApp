@@ -258,78 +258,56 @@ describe 'bands' do
 
         expect(last_response.status).to eq 200
         expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Cowbell'
-        expect(band.genres.first.name).to eq 'Cowbell'
-        expect(band.genres.second).to eq nil
       end
     end
 
     context 'when a label is not entered' do
       it 'returns a no label error' do
-        @new_params['label'] = ''
+        @new_params[:label] = ''
         put '/band/2', @new_params
 
-        expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Invalid label.'
+        expect(last_response.status).to eq 200
       end
     end
 
     context 'when the band name is not entered' do
-      it 'returns a no name error' do
+      it "doesn't change the name" do
         @new_params['name'] = ''
-        put '/band/2', @new_params
+        put '/band/3', @new_params
 
-        expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Name and active status are required.'
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Summit'
       end
     end
 
     context 'when the biography is not an object' do
-      it 'returns an incorrect format error' do
+      it 'gives not a single care' do
         @new_params['biography'] = ''
-        put '/band/2', @new_params
+        put '/band/4', @new_params
 
-        expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Biography should be an object.'
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Cowbell'
       end
     end
 
-  context 'when an empty biography is entered' do
-    it 'returns a empty biography error' do
-      @new_params[:biography] = {}
-      put '/band/2', @new_params
+    context 'when an empty biography is entered' do
+      it 'still does not care' do
+        @new_params[:biography] = {}
+        put '/band/5', @new_params
 
-      expect(last_response.status).to eq 400
-      expect(JSON.parse(last_response.body)).to eq 'Biography is empty.'
-    end
-  end
-
-  context 'when an incomplete biography is entered' do
-    it 'returns a bad biography error' do
-      @new_params[:biography] = { background: '' }
-      put '/band/2', @new_params
-
-      expect(last_response.status).to eq 400
-      expect(JSON.parse(last_response.body)).to eq 'Incomplete biography.'
-    end
-  end
-
-    context 'when an entered genre does not exist' do
-      it 'returns an invalid genre error' do
-        @new_params['genres'] = ['Christopher Walken']
-        put '/band/2', @new_params
-
-        expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Invalid genre.'
+        expect(last_response.status).to eq 200
+        expect(JSON.parse(last_response.body)['name']).to eq 'Scale the Cowbell'
       end
     end
 
-    context 'when genres is not an array of strings' do
-      it 'returns an incorrect format error' do
-        @new_params['genres'] = [{ genre: 'More Cowbell' }, { genre: 'Catbell' }]
-        put '/band/2', @new_params
+    context 'when an incomplete biography is entered' do
+      it 'changes only what was entered' do
+        @new_params[:biography] = { background: 'Anchorman' }
+        put '/band/5', @new_params
 
-        expect(last_response.status).to eq 400
-        expect(JSON.parse(last_response.body)).to eq 'Genres should be an array of strings.'
+        expect(last_response.status).to eq 200
+        expect(Band.find_by_id(5).biography.background).to eq 'Anchorman'
+        expect(Band.find_by_id(5).biography.origin_date).to eq '2004'
       end
     end
   end
