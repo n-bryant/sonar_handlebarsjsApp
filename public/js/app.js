@@ -54,7 +54,7 @@ $(document).ready(() => {
 
             class Genre {
                 constructor(genreDetails) {
-                  console.log(genreDetails);
+                    console.log(genreDetails);
                     this.id = genreDetails.id;
                     this.name = genreDetails.name;
                     this.build();
@@ -626,14 +626,14 @@ $(document).ready(() => {
             function getFeaturedBandResults() {
                 $.get('https://sonar-music-database.herokuapp.com/band')
                     .then((response) => {
-                        console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], true);
-                        // let featuredBands = response.results.splice(0, 6);
-                        //
-                        // // creates new Band instance for each featured band
-                        // for (let index = 0; index < topRelated.length; index++) {
-                        //   new Band(featuredBands[index], true);
-                        // }
+                        // console.log(JSON.parse(response)[0]);
+                        // new Band(JSON.parse(response)[0], true);
+                        let featuredBands = JSON.parse(response).splice(0, 6);
+
+                        // creates new Band instance for each featured band
+                        for (let index = 0; index < topRelated.length; index++) {
+                          new Band(featuredBands[index], true);
+                        }
                     }).catch((error) => {
                         console.log(error);
                     });
@@ -643,12 +643,12 @@ $(document).ready(() => {
             function getBandResults() {
                 $.get('https://sonar-music-database.herokuapp.com/band')
                     .then((response) => {
-                        console.log(JSON.parse(response)[0]);
-                        new Band(JSON.parse(response)[0], false);
-                        // let count = response.results.length;
-                        // for (let index = 0; index < count; index++) {
-                        //   new Band(response.results, false);
-                        // }
+                        // console.log(JSON.parse(response)[0]);
+                        // new Band(JSON.parse(response)[0], false);
+                        let count = JSON.parse(response).length;
+                        for (let index = 0; index < count; index++) {
+                        new Band(JSON.parse(response)[index], false)
+                        }
                     }).catch((error) => {
                         console.log(error);
                     });
@@ -658,12 +658,12 @@ $(document).ready(() => {
             function getGenreBandResults(){
               $.get('https://sonar-music-database.herokuapp.com/')
                   .then((response) => {
-                      console.log(JSON.parse(response)[0]);
-                      new Band(JSON.parse(response)[0], false);
-                      // let count = response.results.length;
-                      // for (let index = 0; index < count; index++) {
-                      //   new Band(response.results, false);
-                      // }
+                      // console.log(JSON.parse(response)[0]);
+                      // new Band(JSON.parse(response)[0], false);
+                      let count = JSON.parse(response).length;
+                      for (let index = 0; index < count; index++) {
+                        new Band(JSON.parse(response)[index], false);
+                      }
                   }).catch((error) => {
                       console.log(error);
                   });
@@ -673,11 +673,11 @@ $(document).ready(() => {
             function getGenreResults() {
                 $.get('https://sonar-music-database.herokuapp.com/genre')
                     .then((response) => {
-                      new Genre(JSON.parse(response)[0]);
-                        // let count = response.results.length;
-                        // for (let index = 0; index < count; index++) {
-                        //     new Genre(response.results);
-                        // }
+                      // new Genre(JSON.parse(response)[0]);
+                        let count = JSON.parse(response).length;
+                        for (let index = 0; index < count; index++) {
+                            new Genre(JSON.parse(response)[index]);
+                        }
                     }).catch((error) => {
                         console.log(error);
                     });
@@ -687,11 +687,12 @@ $(document).ready(() => {
             function getLabelResults() {
                 $.get('https://sonar-music-database.herokuapp.com/label')
                     .then((response) => {
-                      new Label(JSON.parse(response)[0]);
-                        // let count = response.results.length;
-                        // for (let index = 0; index < count; index++) {
-                        //     new Label(response.results);
-                        // }
+                      // new Label(JSON.parse(response)[0]);
+                        let count = JSON.parse(response).length;
+                        for (let index = 0; index < count; index++) {
+                            new Label(JSON.parse(response)[index]);
+                            console.log(count);
+                        }
                     }).catch((error) => {
                         console.log(error);
                     });
