@@ -157,7 +157,7 @@ put '/band/:id' do |id|
   #   genres_updated = BandGenre.create(band: band, genre: current_genre)
   # end
 
-  [200, band.to_json]
+  [200, [band, biography].to_json]
 end
 
 delete '/band/:id' do |id|
